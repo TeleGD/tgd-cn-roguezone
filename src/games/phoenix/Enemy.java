@@ -3,17 +3,20 @@ package games.phoenix;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-public abstract class Enemy {
+public class Enemy {
 	
 	private final String name;
 	private final int id;
 	
-	private int x;
-	private int y;
+	private int posX;
+	private int posY;
+	
 	private int damage;
+	private int speed;
 	
 	private Image sprite;
 
+	private EnemyBehavior behavior;
 	/**
 	 * 
 	 * @param id : id du type d'ennemis
@@ -38,8 +41,37 @@ public abstract class Enemy {
 	
 	public void setPosition(int x, int y)
 	{
-		this.x = x;
-		this.y = y;		
+		this.posX = x;
+		this.posY = y;		
+	}
+	
+	/**
+	 * met la position X à jour
+	 * @param x
+	 */
+	public void setPosX(int x)
+	{
+		posX = x;
+	}
+	
+	/**
+	 * permet de bouger l'ennemis dans un direction donnée  
+	 * @param vx
+	 * @param vy
+	 */
+	public void move(int vx, int vy)
+	{
+		posX += vx;
+		posY += vy;
+	}
+	
+	/**
+	 * met la position y à jour
+	 * @param y
+	 */
+	public void setPosY(int y)
+	{
+		posY = y;
 	}
 	
 	/**
@@ -88,5 +120,11 @@ public abstract class Enemy {
 	public void setImage(String img) throws SlickException
 	{
 		this.sprite = new Image(img);
+	}
+	
+	public int[] getPos()
+	{
+		int[] pos = {posX,posY};
+		return pos;
 	}
 }

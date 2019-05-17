@@ -7,8 +7,8 @@ public class DistanceEnemy extends Enemy{
 	 * shootingRate : cadence de tir
 	 * bulletSpeed : vitesse des projectiles
 	 */
-	private float shootingRate;
-	private float bulletSpeed;
+	private int shootingRate;
+	private int bulletSpeed;
 
 	/**
 	 * 
