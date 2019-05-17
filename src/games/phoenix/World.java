@@ -1,5 +1,7 @@
 package games.phoenix;
 
+import java.io.File;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -10,6 +12,8 @@ import app.AppInput;
 import app.AppWorld;
 
 public class World extends AppWorld {
+
+	public static String IMAGES = "res" + File.separator + "images" + File.separator + "phoenix";
 
 	private Player [] players;
 	private String log;
