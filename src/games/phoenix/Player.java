@@ -13,6 +13,7 @@ import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.state.StateBasedGame;
 
+import app.AppInput;
 import app.AppLoader;
 import app.AppPlayer;
 
@@ -36,6 +37,7 @@ public class Player {
 	private int currentLife;	
 	private int maxLife;
 	private int speed;
+	private int delta;
 	private int height;
 	private int width;
 	private int posX;
@@ -44,7 +46,10 @@ public class Player {
 	private Rectangle bodyHitbox;
 	private Shape hitbox;
 	private int facing;
-
+	private boolean moveUp;
+	private boolean moveDown;
+	private boolean moveLeft;
+	private boolean moveRight;
 
 	/**
 	 * Constructeur du joueur
@@ -55,7 +60,7 @@ public class Player {
 		this.name = appPlayer.getName ();
 		this.currentLife = 100;
 		this.maxLife = 100;
-		this.speed = 1;
+		this.speed = 0;
 		this.height = 80;
 		this.width = 80;
 		this.posX = (world.getHeight() - height)/2;
@@ -64,18 +69,52 @@ public class Player {
 		this.bodyHitbox = new Rectangle(posX + 30, posY + 46, 22, 32);
 		this.hitbox = headHitbox.union(bodyHitbox)[0];
 		this.facing = 1;
+		this.moveLeft = false;
+		this.moveRight = false;
+		this.moveUp = false;
+		this.moveDown = false;
 	}
 
+	/**
+	 * 
+	 * @param container
+	 * @param game
+	 * @param delta
+	 */
 	public void update (GameContainer container, StateBasedGame game, int delta) {
 		/* Méthode exécutée environ 60 fois par seconde */
+		AppInput input = (AppInput) container.getInput ();
+		
+		if(input.isControlPressed(AppInput.BUTTON_UP, controllerID)){
+			moveUp = true;
+			moveDown = moveLeft = moveRight = false;
+			facing = 0;
+		}
+		else if(input.isControlPressed(AppInput.BUTTON_DOWN, controllerID)){
+			moveDown = true;
+			moveUp = moveLeft = moveRight = false;
+			facing = 1;
+		}
+		else if(input.isControlPressed(AppInput.BUTTON_LEFT, controllerID)){
+			moveLeft = true;
+			moveUp = moveDown = moveRight = false;
+			facing = 2;
+		}
+		else if(input.isControlPressed(AppInput.BUTTON_RIGHT, controllerID)){
+			moveRight = true;
+			moveUp = moveDown = moveLeft = false;
+			facing = 3;
+		}
 
+		if(moveUp){
 
+		}
 	}
 
 	public void render (GameContainer container, StateBasedGame game, Graphics context) {
 		/* Méthode exécutée environ 60 fois par seconde */
 
-		playerSpritSheet[facing].draw((float)posX, (float)posY);
+		context.drawImage( playerSpritSheet[facing], posX, posY);
 	}
 
 	/**
