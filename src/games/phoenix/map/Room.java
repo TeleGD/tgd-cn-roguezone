@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.newdawn.slick.Image;
 
+import app.AppLoader;
 import games.phoenix.Enemy;
 
 /**
@@ -15,7 +16,7 @@ import games.phoenix.Enemy;
 public class Room {
 	
 	private int difficulty;
-	private Image fond;
+	private Image fond = AppLoader.loadPicture("");
 	
 	private ArrayList<Enemy> enemies = new ArrayList<>();
 
