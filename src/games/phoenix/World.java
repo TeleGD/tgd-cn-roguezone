@@ -13,6 +13,8 @@ public class World extends AppWorld {
 
 	private Player [] players;
 	private String log;
+	private int height;
+	private int width;
 
 	public World (int ID) {
 		super (ID);
@@ -22,6 +24,9 @@ public class World extends AppWorld {
 	public void init (GameContainer container, StateBasedGame game) {
 		/* Méthode exécutée une unique fois au chargement du programme */
 		super.init (container, game);
+
+		this.height = container.getHeight();
+		this.width = container.getWidth();
 	}
 
 	@Override
@@ -31,7 +36,7 @@ public class World extends AppWorld {
 		int n = appGame.appPlayers.size ();
 		this.players = new Player [n];
 		for (int i = 0; i < n; i++) {
-			this.players [i] = new Player (appGame.appPlayers.get (i));
+			this.players [i] = new Player (appGame.appPlayers.get (i), this);
 		}
 		this.log = "";
 		System.out.println ("PLAY");
@@ -98,4 +103,18 @@ public class World extends AppWorld {
 		}
 	}
 
+	/**
+	 * Accesseur de la hauteur en pixel de l'écran
+	 * @return
+	 */
+	public int getHeight(){
+		return this.height;
+	}
+
+	/**
+	 * Accesseur de la largeur en pixel de l'écran
+	 */
+	public int getWidth(){
+		return this.width;
+	}
 }
