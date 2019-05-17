@@ -1,7 +1,10 @@
 package games.phoenix;
 
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.state.StateBasedGame;
 
 public class Enemy {
 	
@@ -38,6 +41,17 @@ public class Enemy {
 	 * @param x : abscisse de l'ennemis
 	 * @param y : ordonnée de l'ennemis
 	 */
+	
+	
+	public void update (GameContainer container, StateBasedGame game, int delta) {
+		/* Méthode exécutée environ 60 fois par seconde */
+	}
+
+	
+	public void render (GameContainer container, StateBasedGame game, Graphics context) {
+		/* Méthode exécutée environ 60 fois par seconde */
+		
+	}
 	
 	public void setPosition(int x, int y)
 	{
@@ -127,4 +141,10 @@ public class Enemy {
 		int[] pos = {posX,posY};
 		return pos;
 	}
+	
+	public int getSpeed()
+	{
+		return speed;
+	}
+	
 }
