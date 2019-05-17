@@ -10,6 +10,13 @@ import app.AppPlayer;
 public class Player {
 
 	/**
+	 * 
+	 */
+	private int currentLife;
+	
+	private int maxLife;
+	
+	/**
 	 * Numéro de la manette du joueur 
 	 */
 	private int controllerID;
@@ -45,5 +52,34 @@ public class Player {
 	public String getName () {
 		return this.name;
 	}
+	
+	public void updateCurrentLife(int difference) 
+	{
+		currentLife += difference;
+	}
 
+	public void setCurrentLife(int newLife)
+	{
+		currentLife = newLife;
+	}
+	
+	public int getCurrentLife()
+	{
+		return currentLife;
+	}
+	
+	public void updateMaxLife(int difference) 
+	{
+		maxLife += difference;
+	}
+
+	public void setMaxLife(int newMaxLife)
+	{
+		maxLife = newMaxLife;
+	}
+	
+	public int getMaxLife()
+	{
+		return maxLife;
+	}
 }

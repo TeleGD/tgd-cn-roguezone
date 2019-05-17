@@ -22,6 +22,10 @@ public class DistanceEnemy extends Enemy{
 		super(id,name,img);
 	}
 	
+	/**
+	 * renvoie la vitesse des projectiles
+	 * @return
+	 */
 	public float getBulletSpeed()
 	{
 		return bulletSpeed;
