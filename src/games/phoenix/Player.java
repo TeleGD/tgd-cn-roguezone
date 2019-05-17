@@ -14,6 +14,12 @@ import app.AppPlayer;
  */
 public class Player {
 
+	private int currentLife;	
+	private int maxLife;
+	
+	/**
+	 * Numéro de la manette du joueur 
+	 */
 	private int controllerID;
 	private String name;
 	private int posX;
@@ -71,5 +77,59 @@ public class Player {
 	 */
 	public String getName () {
 		return this.name;
+	}
+	
+	/**
+	 * mettre à jour la vie actuelle 
+	 * @param difference : positive , ajoute difference à la vie actuelle; négative enlève difference à la vie actuelle
+	 */
+	public void updateCurrentLife(int difference) 
+	{
+		currentLife += difference;
+	}
+
+	/**
+	 * met la vie actuelle à la vie demandée
+	 * @param difference : nouvelle vie actuelle
+	 */
+	public void setCurrentLife(int newLife)
+	{
+		currentLife = newLife;
+	}
+	
+	/**
+	 * renvoie la vie courrante
+	 * @return
+	 */
+	public int getCurrentLife()
+	{
+		return currentLife;
+	}
+
+	/**
+	 * mettre à jour la vie max
+	 * @param difference : positive , ajoute difference à la vie max; négative enlève difference à la vie max
+	 */
+	public void updateMaxLife(int difference) 
+	{
+		maxLife += difference;
+	}
+
+	/**
+	 * met la vie maximale à la vie demandée
+	 * @param newMaxLife : nouvelle vie actuelle
+	 */
+	public void setMaxLife(int newMaxLife)
+	{
+		maxLife = newMaxLife;
+	}
+	
+	/**
+	 * renvoie la vie max
+	 * @return 
+	 */
+	public int getMaxLife()
+	{
+		return maxLife;
 	}
 }
