@@ -1,34 +1,42 @@
 package games.phoenix;
 
-import org.newdawn.slick.Color;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-import app.AppPlayer;
+public abstract class Enemy {
 
-public class Enemy {
-
-	private String name;
-	private int id;
+	private final String name;
+	private final int id;
+	
+	private int x;
+	private int y;
 	
 	private Image sprite;
 	
-	private float shootingRate;
-	private float shootSpeed;
-
-	public Enemy (int id, String name) throws SlickException {
+	public Enemy (int id, String name, String img) throws SlickException {
 		this.name = name;
 		this.id = id;
-		
-		this.sprite = new Image("images/RogueLikeAVirgin/bossBas.png");
-		
-		
+		this.sprite = new Image(img);
 	}
 	
-	
+	public void setPosition(int x, int y)
+	{
+		this.x = x;
+		this.y = y;
+		
+	}
 
 	public String getName() {
 		return this.name;
 	}
 
+	public int getId()
+	{
+		return id;
+	}
+	
+	public void setImage(String img) throws SlickException
+	{
+		this.sprite = new Image(img);
+	}
 }
