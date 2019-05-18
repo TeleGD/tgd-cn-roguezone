@@ -1,11 +1,14 @@
 package games.phoenix.map;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import org.newdawn.slick.Image;
+import org.newdawn.slick.geom.Rectangle;
 
 import app.AppLoader;
 import games.phoenix.Enemy;
+import games.phoenix.World;
 
 /**
  * 
@@ -16,9 +19,11 @@ import games.phoenix.Enemy;
 public class Room {
 	
 	private int difficulty;
-	private Image fond = AppLoader.loadPicture("");
+	private Image fond = AppLoader.loadPicture(World.IMAGES+File.separator+"rooms"+File.separator+"room_15.png");
 	
 	private ArrayList<Enemy> enemies = new ArrayList<>();
+	
+	private ArrayList<Rectangle> doors = new ArrayList<>();
 
 	/**
 	 * Instancie l'objet Room selon sa difficulté
@@ -27,11 +32,17 @@ public class Room {
 	 * 0 : salle de départ
 	 * -1 : salle spéciale //TODO à définir
 	 * @param difficulty
+	 * @param doors 
+	 * 	- 0 haut
+	 * 	- 1 bas
+	 * 	- 2 gauche
+	 * 	- 3 bas
 	 */
-	public Room(int difficulty) {
+	public Room(World world, int difficulty, ArrayList<Integer> doors) {
 		this.difficulty = difficulty;
 		
 		init();
+		getDoors(doors);
 	}
 	
 	
@@ -46,10 +57,10 @@ public class Room {
 		switch (difficulty) {
 		case 0:
 			
-		case 1:
-			
 		}
-		
+	}
+	
+	private void getDoors(ArrayList<Integer> doors) {
 		
 	}
 	
