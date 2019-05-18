@@ -13,7 +13,7 @@ public class SeringueInfecte extends Bonus {
     private boolean activated, deleted;
 
     static{
-        sprite = AppLoader.loadPicture(World.IMAGES + "Chemin à depuis phoenix");
+        sprite = AppLoader.loadPicture(World.IMAGES + "./phoenix/bonus/Seringue.png");
     }
 
     public SeringueInfecte(int caseX, int caseY){
