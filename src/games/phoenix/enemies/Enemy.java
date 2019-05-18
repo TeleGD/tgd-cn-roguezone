@@ -13,11 +13,11 @@ public class Enemy {
 	private final String name;
 	private final int id;
 	
-	protected int posX;
-	protected int posY;
+	protected float posX;
+	protected float posY;
 	
 	private int damage;
-	private int speed = 2;
+	private float speed = 2;
 	
 	protected static Image playerSpriteSheet[] = new Image[4];
 	
@@ -45,7 +45,7 @@ public class Enemy {
 	 * @param y : ordonnée de l'ennemis
 	 */
 	
-	public void setPosition(int x, int y)
+	public void setPosition(float x, float y)
 	{
 		this.posX = x;
 		this.posY = y;		
@@ -66,7 +66,7 @@ public class Enemy {
 	 * met la position X à jour
 	 * @param x
 	 */
-	public void setPosX(int x)
+	public void setPosX(float x)
 	{
 		posX = x;
 	}
@@ -76,7 +76,7 @@ public class Enemy {
 	 * @param vx
 	 * @param vy
 	 */
-	public void move(int vx, int vy)
+	public void move(float vx, float vy)
 	{
 		posX += vx;
 		posY += vy;
@@ -86,7 +86,7 @@ public class Enemy {
 	 * met la position y à jour
 	 * @param y
 	 */
-	public void setPosY(int y)
+	public void setPosY(float y)
 	{
 		posY = y;
 	}
@@ -139,13 +139,13 @@ public class Enemy {
 		this.sprite = new Image(img);
 	}
 	
-	public int[] getPos()
+	public float[] getPos()
 	{
-		int[] pos = {posX,posY};
+		float[] pos = {posX,posY};
 		return pos;
 	}
 	
-	public int getSpeed()
+	public float getSpeed()
 	{
 		return speed;
 	}

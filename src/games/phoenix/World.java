@@ -45,8 +45,7 @@ public class World extends AppWorld {
 		this.player = new Player(appGame.appPlayers.get(0), this);
 		try {
 			this.enemy = new EnemyTest();
-			this.enemy.setBehavior(new EnemyBehavior(enemy, player));
-			this.enemy.getBehavior().setPlayerInfluence(EnemyBehavior.interacting.STRAIGHT);
+			this.enemy.init(enemy,player);
 		}
 		catch (Throwable t)
 		{

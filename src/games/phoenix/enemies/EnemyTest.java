@@ -10,6 +10,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import app.AppInput;
 import app.AppLoader;
+import games.phoenix.Player;
 import games.phoenix.World;
 
 public class EnemyTest extends Enemy{
@@ -29,8 +30,8 @@ public class EnemyTest extends Enemy{
 	public void update (GameContainer container, StateBasedGame game, int delta) {
 		/* Méthode exécutée environ 60 fois par seconde */
 		
-		int x = this.getBehavior().influencedMove()[0];
-		int y = this.getBehavior().influencedMove()[1];
+		float x = this.getBehavior().influencedMove()[0];
+		float y = this.getBehavior().influencedMove()[1];
 		move(x,y);
 	}
 
@@ -38,5 +39,15 @@ public class EnemyTest extends Enemy{
 		/* Méthode exécutée environ 60 fois par seconde */
 
 		context.drawImage( playerSpriteSheet[0], posX, posY);
+	}
+	
+	/*
+	 * Fonction qui doit disparaitre à terme: c'est pour faire des test à l'arrache sur le
+	 * bon fonctionnement de l'ennemis
+	 */
+	public void init(Enemy enemy, Player player) 
+	{
+		setBehavior(new EnemyBehavior(enemy, player));
+		getBehavior().setPlayerInfluence(EnemyBehavior.interacting.FLEEING);
 	}
 }
