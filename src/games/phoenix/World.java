@@ -1,7 +1,5 @@
 package games.phoenix;
 
-import java.io.File;
-
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -9,14 +7,15 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import app.AppGame;
 import app.AppInput;
-import app.AppPlayer;
 import app.AppWorld;
+import games.phoenix.enemies.EnemyTest;
 
 public class World extends AppWorld {
 
 	public static String IMAGES = "/images/phoenix";
 
 	private Player player;
+	private EnemyTest enemy;
 	private String log;
 	private int height;
 	private int width;
@@ -40,6 +39,14 @@ public class World extends AppWorld {
 		AppGame appGame = (AppGame) game;
 		int n = appGame.appPlayers.size ();
 		this.player = new Player(appGame.appPlayers.get(0), this);
+		try {
+			this.enemy = new EnemyTest();
+			this.enemy.init(enemy,player);
+		}
+		catch (Throwable t)
+		{
+			
+		}
 		// for (int i = 0; i < n; i++) {
 		// 	this.player = new Player (appGame.appPlayers.get (i), this);
 		// }
@@ -98,6 +105,7 @@ public class World extends AppWorld {
 		super.update (container, game, delta);
 		
 		player.update(container, game, delta);
+		enemy.update(container, game, delta);
 	}
 
 	@Override
@@ -109,6 +117,7 @@ public class World extends AppWorld {
 		}
 
 		player.render(container, game, context);
+		enemy.render(container, game, context);
 	}
 
 	/**
@@ -124,5 +133,9 @@ public class World extends AppWorld {
 	 */
 	public int getWidth(){
 		return this.width;
+	}
+
+	public Player getPlayer() {
+		return player;
 	}
 }

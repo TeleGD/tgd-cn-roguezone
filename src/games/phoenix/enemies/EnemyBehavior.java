@@ -1,7 +1,9 @@
-package games.phoenix;
+package games.phoenix.enemies;
+
+import games.phoenix.Player;
 
 public class EnemyBehavior {
-	static enum interacting {FLEEING, COMING, STATIC, STRAIGHT};
+	public static enum interacting {FLEEING, COMING, STATIC, STRAIGHT};
 	/* FLEEING : fuit le joueur
 	 * COMING : va vers le joueur
 	 * STATIC : ne bouge pas
@@ -10,6 +12,8 @@ public class EnemyBehavior {
 	 */
 	
 	static enum wallCollision {MIRROR};
+	//TODO : mettre une reflexion du type : aléatoire (je rebondis n'importe quelle direction
+	//TODO : mettre une reflexion du type : je rebondis en direction du joueur
 	
 	private Enemy enemy;
 	private Player player;
@@ -18,7 +22,7 @@ public class EnemyBehavior {
 	 * direction de l'enemis UNIQUEMENT POUR l'interaction STRAIGHT (pour le moment)
 	 * il faut qu'il soit de norme 1
 	 */
-	private float[] normalizedVector;
+	private double[] normalizedVector = {1/Math.sqrt(2),1/Math.sqrt(2)};
 	
 	private interacting interaction = interacting.STATIC;
 	
@@ -57,41 +61,44 @@ public class EnemyBehavior {
 	 * permet de renvoyer le vecteur de mouvement dû à l'influence du joueur
 	 * @return
 	 */
-	public int[] influencedMove()
+	public float[] influencedMove()
 	{
-		int[] vect = {0,0};
-		int playerX = player.getPos()[0];
-		int enemyX = enemy.getPos()[0];
+		float[] vect = {0,0};
+		float playerX = player.getPos()[0];
+		float enemyX = enemy.getPos()[0];
 		
-		int enemyY = enemy.getPos()[1];
-		int playerY = player.getPos()[1];
+		float enemyY = enemy.getPos()[1];
+		float playerY = player.getPos()[1];
 		
-		int deltaX = enemyX - playerX;
-		int deltaY = enemyY - playerY;
+		float deltaX = enemyX - playerX;
+		float deltaY = enemyY - playerY;
 		
 		double norm  = Math.sqrt(Math.pow((double) deltaX, (double) 2) + Math.pow((double) deltaY, (double) 2));
 		
 		switch(interaction)
 		{
 		case FLEEING:
-			if (enemy.getSpeed()!=0)
+			if (norm!=0)
 			{
-				vect[0]= (int) (((double) deltaX )/ norm) * enemy.getSpeed();
-				vect[1]= (int) (((double) deltaX )/ norm) * enemy.getSpeed();
+				vect[0]= (float) ((((double) deltaX )/ norm) * enemy.getSpeed());
+				vect[1]= (float) ((((double) deltaY )/ norm) * enemy.getSpeed());
 			}
 			break;
 		
 		case COMING:
-				vect[0]= -(int) (((double) deltaX )/ norm) * enemy.getSpeed();
-				vect[1]= -(int) (((double) deltaX )/ norm) * enemy.getSpeed();
+			if (norm!=0)
+			{
+				vect[0]= -(float) ((((double) deltaX )/ norm) * enemy.getSpeed());
+				vect[1]= -(float) ((((double) deltaY )/ norm) * enemy.getSpeed());
+			}
 			break;
 			
 		case STATIC:
 
 			break;
 		case STRAIGHT:
-			vect[0] = (int) (normalizedVector[0] * enemy.getSpeed());
-			vect[1] = (int) (normalizedVector[1] * enemy.getSpeed());
+			vect[0] = (float) (normalizedVector[0] * enemy.getSpeed());
+			vect[1] = -(float) (normalizedVector[1] * enemy.getSpeed());
 		}
 		return vect;
 	}
