@@ -73,6 +73,7 @@ public class AppLoader {
 
 	public static AppPicture loadPicture (String filename) {
 		AppPicture resource = AppLoader.pictureList.get (filename);
+		System.out.println(filename);
 		if (resource == null) {
 			InputStream stream = AppLoader.openStream (filename);
 			if (stream != null) {
@@ -82,6 +83,7 @@ public class AppLoader {
 				AppLoader.closeStream (stream);
 			}
 			if (resource == null) {
+				System.out.println("non chargée");
 				resource = new AppPicture (filename);
 			}
 			AppLoader.pictureList.put (filename, resource);

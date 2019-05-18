@@ -3,7 +3,7 @@ package games.phoenix.enemies;
 import games.phoenix.Player;
 
 public class EnemyBehavior {
-	static enum interacting {FLEEING, COMING, STATIC, STRAIGHT};
+	public static enum interacting {FLEEING, COMING, STATIC, STRAIGHT};
 	/* FLEEING : fuit le joueur
 	 * COMING : va vers le joueur
 	 * STATIC : ne bouge pas
@@ -20,7 +20,7 @@ public class EnemyBehavior {
 	 * direction de l'enemis UNIQUEMENT POUR l'interaction STRAIGHT (pour le moment)
 	 * il faut qu'il soit de norme 1
 	 */
-	private float[] normalizedVector;
+	private double[] normalizedVector = {1/Math.sqrt(2),1/Math.sqrt(2)};
 	
 	private interacting interaction = interacting.STATIC;
 	
@@ -76,16 +76,19 @@ public class EnemyBehavior {
 		switch(interaction)
 		{
 		case FLEEING:
-			if (enemy.getSpeed()!=0)
+			if (norm!=0)
 			{
-				vect[0]= (int) (((double) deltaX )/ norm) * enemy.getSpeed();
-				vect[1]= (int) (((double) deltaX )/ norm) * enemy.getSpeed();
+				vect[0]= (int) ((((double) deltaX )/ norm) * enemy.getSpeed());
+				vect[1]= (int) ((((double) deltaX )/ norm) * enemy.getSpeed());
 			}
 			break;
 		
 		case COMING:
-				vect[0]= -(int) (((double) deltaX )/ norm) * enemy.getSpeed();
-				vect[1]= -(int) (((double) deltaX )/ norm) * enemy.getSpeed();
+			if (norm!=0)
+			{
+				vect[0]= -(int) ((((double) deltaX )/ norm) * enemy.getSpeed());
+				vect[1]= -(int) ((((double) deltaY )/ norm) * enemy.getSpeed());
+			}
 			break;
 			
 		case STATIC:
@@ -93,7 +96,7 @@ public class EnemyBehavior {
 			break;
 		case STRAIGHT:
 			vect[0] = (int) (normalizedVector[0] * enemy.getSpeed());
-			vect[1] = (int) (normalizedVector[1] * enemy.getSpeed());
+			vect[1] = -(int) (normalizedVector[1] * enemy.getSpeed());
 		}
 		return vect;
 	}

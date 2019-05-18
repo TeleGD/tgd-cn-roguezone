@@ -13,8 +13,6 @@ import app.AppLoader;
 import games.phoenix.World;
 
 public class EnemyTest extends Enemy{
-
-	private static Image playerSpriteSheet[] = new Image[4];
 	
 	static{
 		playerSpriteSheet[0] = AppLoader.loadPicture(World.IMAGES + File.separator + "enemies" + File.separator + "gray_0.png");
@@ -31,6 +29,9 @@ public class EnemyTest extends Enemy{
 	public void update (GameContainer container, StateBasedGame game, int delta) {
 		/* Méthode exécutée environ 60 fois par seconde */
 		
+		int x = this.getBehavior().influencedMove()[0];
+		int y = this.getBehavior().influencedMove()[1];
+		move(x,y);
 	}
 
 	public void render (GameContainer container, StateBasedGame game, Graphics context) {

@@ -17,7 +17,9 @@ public class Enemy {
 	protected int posY;
 	
 	private int damage;
-	private int speed;
+	private int speed = 2;
+	
+	protected static Image playerSpriteSheet[] = new Image[4];
 	
 	private Image sprite;
 
@@ -43,25 +45,22 @@ public class Enemy {
 	 * @param y : ordonnée de l'ennemis
 	 */
 	
-	
-	public void update (GameContainer container, StateBasedGame game, int delta) {
-		/* Méthode exécutée environ 60 fois par seconde */
-		
-		
-	}
-
-	
-	public void render (GameContainer container, StateBasedGame game, Graphics context) {
-		/* Méthode exécutée environ 60 fois par seconde */
-		
-		
-	}
-	
 	public void setPosition(int x, int y)
 	{
 		this.posX = x;
 		this.posY = y;		
 	}
+	
+	public void setBehavior(EnemyBehavior b)
+	{
+		this.behavior = b;
+	}
+	
+	public EnemyBehavior getBehavior()
+	{
+		return behavior;
+	}
+	
 	
 	/**
 	 * met la position X à jour
