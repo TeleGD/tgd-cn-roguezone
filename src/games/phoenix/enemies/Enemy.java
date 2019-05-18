@@ -24,6 +24,7 @@ public class Enemy {
 	private Image sprite;
 
 	private EnemyBehavior behavior;
+	
 	/**
 	 * 
 	 * @param id : id du type d'ennemis
@@ -31,7 +32,6 @@ public class Enemy {
 	 * @param img : arborescence menant à l'image de l'ennemis
 	 * @throws SlickException :  si l'image n'a pas été trouvée ou pas bien affectée
 	 */
-	
 	public Enemy (int id, String name) throws SlickException {
 		this.name = name;
 		this.id = id;
@@ -39,12 +39,21 @@ public class Enemy {
 		this.setPosition(0,0);
 		this.setContactDamage(0);
 	}
+	
+	public void update (GameContainer container, StateBasedGame game, int delta) {
+		
+	}
+
+	public void render (GameContainer container, StateBasedGame game, Graphics context) {
+		
+	}
+	
+	
 	/**
 	 * mets l'ennemis à la position souhaitée
 	 * @param x : abscisse de l'ennemis
 	 * @param y : ordonnée de l'ennemis
 	 */
-	
 	public void setPosition(float x, float y)
 	{
 		this.posX = x;
