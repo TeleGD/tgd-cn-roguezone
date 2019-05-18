@@ -89,7 +89,6 @@ public class Player {
 	 * Gestion des mouvements du joueur
 	 */
 	private void move(AppInput input, int delta){
-		System.out.println("move");
 		speedX = input.getAxisValue(AppInput.AXIS_XL, controllerID) * speed;
 		speedY = input.getAxisValue(AppInput.AXIS_YR, controllerID) * speed;
 
@@ -111,7 +110,7 @@ public class Player {
 	 */
 	public void render(GameContainer container, StateBasedGame game, Graphics context) {
 		/* Méthode exécutée environ 60 fois par seconde */
-		context.drawImage( playerSpritSheet[facing], posX, posY);
+		context.drawImage(playerSpritSheet[facing], posX, posY);
 	}
 
 	/**
