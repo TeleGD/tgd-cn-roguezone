@@ -2,10 +2,7 @@ package games.phoenix;
 
 import java.io.File;
 
-import org.newdawn.slick.Animation;
-import org.newdawn.slick.Color;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.geom.Ellipse;
 import org.newdawn.slick.geom.Rectangle;
@@ -47,10 +44,6 @@ public class Player {
 	private Rectangle bodyHitbox;
 	private Shape hitbox;
 	private int facing;
-	private boolean moveUp;
-	private boolean moveDown;
-	private boolean moveLeft;
-	private boolean moveRight;
 
 	/**
 	 * Constructeur du joueur par défaut
@@ -77,10 +70,6 @@ public class Player {
 		this.bodyHitbox = new Rectangle(posX + 30, posY + 46, 22, 32);
 		this.hitbox = headHitbox.union(bodyHitbox)[0];
 		this.facing = 1;
-		this.moveLeft = false;
-		this.moveRight = false;
-		this.moveUp = false;
-		this.moveDown = false;
 	}
 
 	/**
@@ -105,7 +94,10 @@ public class Player {
 		if (speedY > 0) facing = 1;
 		if (speedX < 0) facing = 2;
 		if (speedX > 0) facing = 3;
-		if (speedX == 0 && speedY == 0) facing = 1;
+		if (speedX < 0.05f && speedX > -0.05f && speedY < 0.05f && speedY > -0.05f) {
+			facing = 1;
+			speedX = speedY = 0;
+		}
 
 
 		posX += speedX*delta;

@@ -7,6 +7,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Rectangle;
 
 import app.AppLoader;
+import games.phoenix.Player;
 import games.phoenix.World;
 import games.phoenix.enemies.Enemy;
 
@@ -18,12 +19,12 @@ import games.phoenix.enemies.Enemy;
  */
 public class Room {
 	
-	private int difficulty;
 	private Image fond = AppLoader.loadPicture(World.IMAGES+File.separator+"rooms"+File.separator+"room_15.png");
 	
+	private int difficulty;
+	private Player player;
 	private ArrayList<Enemy> enemies = new ArrayList<>();
-	
-	private ArrayList<Rectangle> doors = new ArrayList<>();
+	private ArrayList<Integer> doors = new ArrayList<>();
 
 	/**
 	 * Instancie l'objet Room selon sa difficulté
@@ -40,9 +41,10 @@ public class Room {
 	 */
 	public Room(World world, int difficulty, ArrayList<Integer> doors) {
 		this.difficulty = difficulty;
+		this.doors = doors;
+		this.player = world.getPlayer();
 		
 		init();
-		getDoors(doors);
 	}
 	
 	

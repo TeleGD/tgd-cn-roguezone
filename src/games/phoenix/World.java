@@ -1,7 +1,5 @@
 package games.phoenix;
 
-import java.io.File;
-
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -9,9 +7,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import app.AppGame;
 import app.AppInput;
-import app.AppPlayer;
 import app.AppWorld;
-import games.phoenix.enemies.EnemyBehavior;
 import games.phoenix.enemies.EnemyTest;
 
 public class World extends AppWorld {
@@ -137,5 +133,9 @@ public class World extends AppWorld {
 	 */
 	public int getWidth(){
 		return this.width;
+	}
+
+	public Player getPlayer() {
+		return player;
 	}
 }
