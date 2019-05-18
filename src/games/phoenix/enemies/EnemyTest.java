@@ -4,11 +4,9 @@ import java.io.File;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
-import app.AppInput;
 import app.AppLoader;
 import games.phoenix.Player;
 import games.phoenix.World;

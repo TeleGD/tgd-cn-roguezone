@@ -30,6 +30,7 @@ public class Enemy {
 	private Image sprite;
 
 	private EnemyBehavior behavior;
+	
 	/**
 	 * 
 	 * @param id : id du type d'ennemis
@@ -39,6 +40,7 @@ public class Enemy {
 	 */
 	
 	public Enemy (int id, String name, EnemyColor i) throws SlickException {
+
 		this.name = name;
 		this.id = id;
 		interaction = i;
@@ -76,12 +78,21 @@ public class Enemy {
 		}
 		this.setPosition(0,0);
 	}
+	
+	public void update (GameContainer container, StateBasedGame game, int delta) {
+		
+	}
+
+	public void render (GameContainer container, StateBasedGame game, Graphics context) {
+		
+	}
+	
+	
 	/**
 	 * mets l'ennemis à la position souhaitée
 	 * @param x : abscisse de l'ennemis
 	 * @param y : ordonnée de l'ennemis
 	 */
-	
 	public void setPosition(float x, float y)
 	{
 		this.posX = x;

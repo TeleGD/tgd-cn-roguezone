@@ -166,6 +166,19 @@ public class Player {
 	}
 
 	/**
+	 * ajout de vie
+	 * param nombre de vie à rajouter
+	 */
+	public void addLife(int life){
+		if(this.getCurrentLife() + life > this.getMaxLife()){
+			this.setCurrentLife(this.getMaxLife());
+		}
+		else{
+			this.setCurrentLife(this.getCurrentLife() + life);
+		}
+	}
+
+	/**
 	 * met la vie maximale à la vie demandée
 	 * @param newMaxLife : nouvelle vie actuelle
 	 */
