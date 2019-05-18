@@ -6,9 +6,14 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
+import app.AppLoader;
 import games.phoenix.Player;
+import games.phoenix.World;
+import games.phoenix.enemies.EnemyBehavior.interacting;
 
 public class Enemy {
+	
+	public static enum EnemyColor {RED, BLUE, YELLOW, GREEN, PURPLE, BOSS};
 	
 	private final String name;
 	private final int id;
@@ -18,6 +23,7 @@ public class Enemy {
 	
 	private int damage;
 	private float speed = 2;
+	private EnemyColor interaction = EnemyColor.GREEN;
 	
 	protected static Image playerSpriteSheet[] = new Image[4];
 	
@@ -32,12 +38,45 @@ public class Enemy {
 	 * @param img : arborescence menant à l'image de l'ennemis
 	 * @throws SlickException :  si l'image n'a pas été trouvée ou pas bien affectée
 	 */
-	public Enemy (int id, String name) throws SlickException {
+	
+	public Enemy (int id, String name, EnemyColor i) throws SlickException {
+
 		this.name = name;
 		this.id = id;
+		interaction = i;
 		
+		switch (interaction) {
+		case BLUE:
+			setImage("mechantFinalFinalBleu");
+			setContactDamage(2);
+			speed = 2;
+			break;
+		case GREEN:
+			setImage("mechantFinalFinal");
+			setContactDamage(2);
+			speed = 2;
+			break;
+		case RED:
+			setImage("mechantFinalFinalRouge");
+			setContactDamage(2);
+			speed = 2;
+			break;
+		case YELLOW:
+			setImage("mechantFinalFinalJaune");
+			setContactDamage(2);
+			speed = 2;
+			break;
+		case PURPLE:
+			setImage("mechantFinalFinalViolet");
+			setContactDamage(2);
+			speed = 2;
+			break;
+		case BOSS:
+			setContactDamage(5);
+			speed = 3;
+			break;
+		}
 		this.setPosition(0,0);
-		this.setContactDamage(0);
 	}
 	
 	public void update (GameContainer container, StateBasedGame game, int delta) {
@@ -145,7 +184,11 @@ public class Enemy {
 	
 	public void setImage(String img) throws SlickException
 	{
-		this.sprite = new Image(img);
+		this.sprite = AppLoader.loadPicture(World.IMAGES + "/enemies/"+img+".png");
+	}
+	
+	public Image getSprite() {
+		return sprite;
 	}
 	
 	public float[] getPos()

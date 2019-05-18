@@ -22,7 +22,7 @@ public class EnemyTest extends Enemy{
 	
 	public EnemyTest() throws SlickException
 	{
-		super(0, "Test");
+		super(0, "Test", EnemyColor.PURPLE);
 	}
 	
 	public void update (GameContainer container, StateBasedGame game, int delta) {
@@ -36,7 +36,7 @@ public class EnemyTest extends Enemy{
 	public void render (GameContainer container, StateBasedGame game, Graphics context) {
 		/* Méthode exécutée environ 60 fois par seconde */
 
-		context.drawImage( playerSpriteSheet[0], posX, posY);
+		context.drawImage( getSprite(), posX, posY);
 	}
 	
 	/*
@@ -46,6 +46,6 @@ public class EnemyTest extends Enemy{
 	public void init(Enemy enemy, Player player) 
 	{
 		setBehavior(new EnemyBehavior(enemy, player));
-		getBehavior().setPlayerInfluence(EnemyBehavior.interacting.FLEEING);
+		getBehavior().setPlayerInfluence(EnemyBehavior.interacting.COMING);
 	}
 }
