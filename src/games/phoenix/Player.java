@@ -90,10 +90,10 @@ public class Player {
 		speedX = input.getAxisValue(AppInput.AXIS_XL, controllerID) * speed;
 		speedY = input.getAxisValue(AppInput.AXIS_YR, controllerID) * speed;
 
-		if (speedY < 0) facing = 0;
-		if (speedY > 0) facing = 1;
-		if (speedX < 0) facing = 2;
-		if (speedX > 0) facing = 3;
+		if (speedY < 0 && Math.abs(speedY) >Math.abs(speedX)) facing = 0;
+		if (speedY > 0 && Math.abs(speedX) < Math.abs(speedY)) facing = 1;
+		if (speedX < 0 && Math.abs(speedX) >= Math.abs(speedY)) facing = 2;
+		if (speedX > 0 && Math.abs(speedY) <= Math.abs(speedX)) facing = 3;
 		if (speedX < 0.05f && speedX > -0.05f && speedY < 0.05f && speedY > -0.05f) {
 			facing = 1;
 			speedX = speedY = 0;
@@ -106,7 +106,6 @@ public class Player {
 
 	public void render(GameContainer container, StateBasedGame game, Graphics context) {
 		/* Méthode exécutée environ 60 fois par seconde */
-		//context.drawImage(AppLoader.loadPicture(World.IMAGES + File.separator + "characters" + File.separator + "gray_0.png"), 0, 0);
 		context.drawImage( playerSpritSheet[facing], posX, posY);
 	}
 
