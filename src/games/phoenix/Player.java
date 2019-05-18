@@ -194,4 +194,10 @@ public class Player {
 	{
 		return maxLife;
 	}
+	
+	public int[] getPos()
+	{
+		int[] pos = {posX,posY};
+		return pos;
+	}
 }

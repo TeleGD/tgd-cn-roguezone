@@ -14,6 +14,12 @@ public class EnemyBehavior {
 	private Enemy enemy;
 	private Player player;
 	
+	/*
+	 * direction de l'enemis UNIQUEMENT POUR l'interaction STRAIGHT (pour le moment)
+	 * il faut qu'il soit de norme 1
+	 */
+	private float[] normalizedVector;
+	
 	private interacting interaction = interacting.STATIC;
 	
 	
@@ -54,24 +60,38 @@ public class EnemyBehavior {
 	public int[] influencedMove()
 	{
 		int[] vect = {0,0};
+		int playerX = player.getPos()[0];
+		int enemyX = enemy.getPos()[0];
+		
+		int enemyY = enemy.getPos()[1];
+		int playerY = player.getPos()[1];
+		
+		int deltaX = enemyX - playerX;
+		int deltaY = enemyY - playerY;
+		
+		double norm  = Math.sqrt(Math.pow((double) deltaX, (double) 2) + Math.pow((double) deltaY, (double) 2));
+		
 		switch(interaction)
 		{
 		case FLEEING:
-			
+			if (enemy.getSpeed()!=0)
+			{
+				vect[0]= (int) (((double) deltaX )/ norm) * enemy.getSpeed();
+				vect[1]= (int) (((double) deltaX )/ norm) * enemy.getSpeed();
+			}
 			break;
 		
 		case COMING:
-			
+				vect[0]= -(int) (((double) deltaX )/ norm) * enemy.getSpeed();
+				vect[1]= -(int) (((double) deltaX )/ norm) * enemy.getSpeed();
 			break;
 			
 		case STATIC:
-			vect[0] = 0;
-			vect[1] = 0;
-			
 
+			break;
 		case STRAIGHT:
-			
-			
+			vect[0] = (int) (normalizedVector[0] * enemy.getSpeed());
+			vect[1] = (int) (normalizedVector[1] * enemy.getSpeed());
 		}
 		return vect;
 	}
@@ -85,5 +105,11 @@ public class EnemyBehavior {
 		int[] pos = {};
 		//do some stuff
 		return pos;
+	}
+	
+	public void setVector(float[] vect)
+	{
+		normalizedVector[0] = vect[0];
+		normalizedVector[1] = vect[1];
 	}
 }
