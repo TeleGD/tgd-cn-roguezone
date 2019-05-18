@@ -7,8 +7,8 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Rectangle;
 
 import app.AppLoader;
-import games.phoenix.Enemy;
 import games.phoenix.World;
+import games.phoenix.enemies.Enemy;
 
 /**
  * 

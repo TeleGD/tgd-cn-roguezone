@@ -1,4 +1,4 @@
-package games.phoenix;
+package games.phoenix.enemies;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -6,16 +6,20 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
+import games.phoenix.Player;
+
 public class Enemy {
 	
 	private final String name;
 	private final int id;
 	
-	private int posX;
-	private int posY;
+	protected float posX;
+	protected float posY;
 	
 	private int damage;
-	private int speed;
+	private float speed = 2;
+	
+	protected static Image playerSpriteSheet[] = new Image[4];
 	
 	private Image sprite;
 
@@ -28,10 +32,9 @@ public class Enemy {
 	 * @throws SlickException :  si l'image n'a pas été trouvée ou pas bien affectée
 	 */
 	
-	public Enemy (int id, String name, String img) throws SlickException {
+	public Enemy (int id, String name) throws SlickException {
 		this.name = name;
 		this.id = id;
-		this.sprite = new Image(img);
 		
 		this.setPosition(0,0);
 		this.setContactDamage(0);
@@ -42,28 +45,28 @@ public class Enemy {
 	 * @param y : ordonnée de l'ennemis
 	 */
 	
-	
-	public void update (GameContainer container, StateBasedGame game, int delta) {
-		/* Méthode exécutée environ 60 fois par seconde */
-	}
-
-	
-	public void render (GameContainer container, StateBasedGame game, Graphics context) {
-		/* Méthode exécutée environ 60 fois par seconde */
-		
-	}
-	
-	public void setPosition(int x, int y)
+	public void setPosition(float x, float y)
 	{
 		this.posX = x;
 		this.posY = y;		
 	}
 	
+	public void setBehavior(EnemyBehavior b)
+	{
+		this.behavior = b;
+	}
+	
+	public EnemyBehavior getBehavior()
+	{
+		return behavior;
+	}
+	
+	
 	/**
 	 * met la position X à jour
 	 * @param x
 	 */
-	public void setPosX(int x)
+	public void setPosX(float x)
 	{
 		posX = x;
 	}
@@ -73,7 +76,7 @@ public class Enemy {
 	 * @param vx
 	 * @param vy
 	 */
-	public void move(int vx, int vy)
+	public void move(float vx, float vy)
 	{
 		posX += vx;
 		posY += vy;
@@ -83,7 +86,7 @@ public class Enemy {
 	 * met la position y à jour
 	 * @param y
 	 */
-	public void setPosY(int y)
+	public void setPosY(float y)
 	{
 		posY = y;
 	}
@@ -136,13 +139,13 @@ public class Enemy {
 		this.sprite = new Image(img);
 	}
 	
-	public int[] getPos()
+	public float[] getPos()
 	{
-		int[] pos = {posX,posY};
+		float[] pos = {posX,posY};
 		return pos;
 	}
 	
-	public int getSpeed()
+	public float getSpeed()
 	{
 		return speed;
 	}

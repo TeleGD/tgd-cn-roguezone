@@ -36,12 +36,13 @@ public class Player {
 	private String name;
 	private int currentLife;	
 	private int maxLife;
-	private int speed;
-	private int delta;
+	private float speed;
+	private float speedX;
+	private float speedY;
 	private int height;
 	private int width;
-	private int posX;
-	private int posY;
+	private float posX;
+	private float posY;
 	private Ellipse headHitbox;
 	private Rectangle bodyHitbox;
 	private Shape hitbox;
@@ -56,13 +57,13 @@ public class Player {
 	 * @param appPlayer
 	 */
 	public Player(AppPlayer appPlayer, World world) {
-		this(world, appPlayer.getControllerID(), appPlayer.getName(), 100, 100, 0, 80, 80);
+		this(world, appPlayer.getControllerID(), appPlayer.getName(), 100, 100, 0.3f, 0f, 0f, 80, 80);
 	}
 	
 	/**
 	 * Constructeur à paramètre
 	 */
-	public Player(World world, int controllerID, String name, int currentLife, int maxLife, int speed, int height, int width){
+	public Player(World world, int controllerID, String name, int currentLife, int maxLife, float speed, float speedX, float speedY, int height, int width){
 		this.controllerID = controllerID;
 		this.name = name;
 		this.currentLife = currentLife;
@@ -92,35 +93,27 @@ public class Player {
 		/* Méthode exécutée environ 60 fois par seconde */
 		AppInput input = (AppInput) container.getInput ();
 		
-		if(input.isControlPressed(AppInput.BUTTON_UP, controllerID)){
-			moveUp = true;
-			moveDown = moveLeft = moveRight = false;
-			facing = 0;
-		}
-		else if(input.isControlPressed(AppInput.BUTTON_DOWN, controllerID)){
-			moveDown = true;
-			moveUp = moveLeft = moveRight = false;
-			facing = 1;
-		}
-		else if(input.isControlPressed(AppInput.BUTTON_LEFT, controllerID)){
-			moveLeft = true;
-			moveUp = moveDown = moveRight = false;
-			facing = 2;
-		}
-		else if(input.isControlPressed(AppInput.BUTTON_RIGHT, controllerID)){
-			moveRight = true;
-			moveUp = moveDown = moveLeft = false;
-			facing = 3;
-		}
-
-		if(moveUp){
-
-		}
+		move(input, delta);
 	}
 
-	public void render (GameContainer container, StateBasedGame game, Graphics context) {
+	private void move(AppInput input, int delta){
+		System.out.println("move");
+		speedX = input.getAxisValue(AppInput.AXIS_XL, controllerID) * speed;
+		speedY = input.getAxisValue(AppInput.AXIS_YR, controllerID) * speed;
+
+		if (speedY < 0) facing = 0;
+		if (speedY > 0) facing = 1;
+		if (speedX < 0) facing = 2;
+		if (speedX > 0) facing = 3;
+		if (speedX == 0 && speedY == 0) facing = 1;
+
+
+		posX += speedX*delta;
+		posY += speedY*delta;
+	}
+
+	public void render(GameContainer container, StateBasedGame game, Graphics context) {
 		/* Méthode exécutée environ 60 fois par seconde */
-		context.drawRect(0, 0, 10, 10);
 		//context.drawImage(AppLoader.loadPicture(World.IMAGES + File.separator + "characters" + File.separator + "gray_0.png"), 0, 0);
 		context.drawImage( playerSpritSheet[facing], posX, posY);
 	}
@@ -195,9 +188,9 @@ public class Player {
 		return maxLife;
 	}
 	
-	public int[] getPos()
+	public float[] getPos()
 	{
-		int[] pos = {posX,posY};
+		float[] pos = {posX,posY};
 		return pos;
 	}
 }
