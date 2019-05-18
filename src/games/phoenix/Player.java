@@ -25,7 +25,7 @@ public class Player {
 	private static Image playerSpritSheet[] = new Image[4];
 
 	static{
-		playerSpritSheet[0] = AppLoader.loadPicture(World.IMAGES + File.separator + "characters" + File.separator + "gray_0.png");
+		playerSpritSheet[0] = AppLoader.loadPicture(World.IMAGES + "/characters/gray_0.png");
 		playerSpritSheet[1] = AppLoader.loadPicture(World.IMAGES + File.separator + "characters" + File.separator + "gray_1.png");
 		playerSpritSheet[2] = AppLoader.loadPicture(World.IMAGES + File.separator + "characters" + File.separator + "gray_2.png");
 		playerSpritSheet[3] = AppLoader.loadPicture(World.IMAGES + File.separator + "characters" + File.separator + "gray_3.png");
@@ -52,19 +52,26 @@ public class Player {
 	private boolean moveRight;
 
 	/**
-	 * Constructeur du joueur
+	 * Constructeur du joueur par défaut
 	 * @param appPlayer
 	 */
-	public Player (AppPlayer appPlayer, World world) {
-		this.controllerID = appPlayer.getControllerID ();
-		this.name = appPlayer.getName ();
-		this.currentLife = 100;
-		this.maxLife = 100;
-		this.speed = 0;
-		this.height = 80;
-		this.width = 80;
-		this.posX = (world.getHeight() - height)/2;
-		this.posY = (world.getWidth() - width)/2;
+	public Player(AppPlayer appPlayer, World world) {
+		this(world, appPlayer.getControllerID(), appPlayer.getName(), 100, 100, 0, 80, 80);
+	}
+	
+	/**
+	 * Constructeur à paramètre
+	 */
+	public Player(World world, int controllerID, String name, int currentLife, int maxLife, int speed, int height, int width){
+		this.controllerID = controllerID;
+		this.name = name;
+		this.currentLife = currentLife;
+		this.maxLife = maxLife;
+		this.speed = speed;
+		this.height = height;
+		this.width = width;
+		this.posX = (world.getWidth() - this.width)/2;
+		this.posY = (world.getHeight() - this.height)/2;
 		this.headHitbox = new Ellipse(posX + 40, posY + 26, 26, 24);
 		this.bodyHitbox = new Rectangle(posX + 30, posY + 46, 22, 32);
 		this.hitbox = headHitbox.union(bodyHitbox)[0];
@@ -81,7 +88,7 @@ public class Player {
 	 * @param game
 	 * @param delta
 	 */
-	public void update (GameContainer container, StateBasedGame game, int delta) {
+	public void update(GameContainer container, StateBasedGame game, int delta) {
 		/* Méthode exécutée environ 60 fois par seconde */
 		AppInput input = (AppInput) container.getInput ();
 		
@@ -113,7 +120,8 @@ public class Player {
 
 	public void render (GameContainer container, StateBasedGame game, Graphics context) {
 		/* Méthode exécutée environ 60 fois par seconde */
-
+		context.drawRect(0, 0, 10, 10);
+		//context.drawImage(AppLoader.loadPicture(World.IMAGES + File.separator + "characters" + File.separator + "gray_0.png"), 0, 0);
 		context.drawImage( playerSpritSheet[facing], posX, posY);
 	}
 
