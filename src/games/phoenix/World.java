@@ -96,7 +96,6 @@ public class World extends AppWorld {
 	public void update (GameContainer container, StateBasedGame game, int delta) {
 		/* Méthode exécutée environ 60 fois par seconde */
 		super.update (container, game, delta);
-		
 	}
 
 	@Override

@@ -1,4 +1,6 @@
-package games.phoenix;
+package games.phoenix.enemies;
+
+import games.phoenix.Player;
 
 public class EnemyBehavior {
 	static enum interacting {FLEEING, COMING, STATIC, STRAIGHT};

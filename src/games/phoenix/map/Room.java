@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import org.newdawn.slick.Image;
 
 import app.AppLoader;
-import games.phoenix.Enemy;
+import games.phoenix.enemies.Enemy;
 
 /**
  * 

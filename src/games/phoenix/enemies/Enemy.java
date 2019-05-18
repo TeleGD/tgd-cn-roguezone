@@ -1,4 +1,4 @@
-package games.phoenix;
+package games.phoenix.enemies;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -6,13 +6,15 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
+import games.phoenix.Player;
+
 public class Enemy {
 	
 	private final String name;
 	private final int id;
 	
-	private int posX;
-	private int posY;
+	protected int posX;
+	protected int posY;
 	
 	private int damage;
 	private int speed;
@@ -28,10 +30,9 @@ public class Enemy {
 	 * @throws SlickException :  si l'image n'a pas été trouvée ou pas bien affectée
 	 */
 	
-	public Enemy (int id, String name, String img) throws SlickException {
+	public Enemy (int id, String name) throws SlickException {
 		this.name = name;
 		this.id = id;
-		this.sprite = new Image(img);
 		
 		this.setPosition(0,0);
 		this.setContactDamage(0);
@@ -45,11 +46,14 @@ public class Enemy {
 	
 	public void update (GameContainer container, StateBasedGame game, int delta) {
 		/* Méthode exécutée environ 60 fois par seconde */
+		
+		
 	}
 
 	
 	public void render (GameContainer container, StateBasedGame game, Graphics context) {
 		/* Méthode exécutée environ 60 fois par seconde */
+		
 		
 	}
 	
