@@ -105,7 +105,14 @@ public class Player {
 		if (speedY > 0) facing = 1;
 		if (speedX < 0) facing = 2;
 		if (speedX > 0) facing = 3;
-		if (speedX == 0 && speedY == 0) facing = 1;
+		/*if (!(input.isButtonPressed(12, controllerID) ||
+			input.isButtonPressed(13, controllerID) ||
+			input.isButtonPressed(14, controllerID) ||
+			input.isButtonPressed(15, controllerID))) {
+				facing = 1;
+				speedX = 0;
+				speedY = 0;
+		}*/
 
 
 		posX += speedX*delta;
