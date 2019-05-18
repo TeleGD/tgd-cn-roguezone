@@ -21,6 +21,7 @@ public class Enemy {
 	protected float posX;
 	protected float posY;
 	
+	private int size;
 	private int damage;
 	private float speed = 2;
 	private EnemyColor interaction = EnemyColor.GREEN;
@@ -44,12 +45,13 @@ public class Enemy {
 		this.name = name;
 		this.id = id;
 		interaction = i;
+		this.size = 100;
 		
 		switch (interaction) {
 		case BLUE:
 			setImage("mechantFinalFinalBleu");
 			setContactDamage(2);
-			speed = 2;
+			speed = 1;
 			break;
 		case GREEN:
 			setImage("mechantFinalFinal");
@@ -59,32 +61,39 @@ public class Enemy {
 		case RED:
 			setImage("mechantFinalFinalRouge");
 			setContactDamage(2);
-			speed = 2;
+			speed = 3;
 			break;
 		case YELLOW:
 			setImage("mechantFinalFinalJaune");
 			setContactDamage(2);
-			speed = 2;
+			speed = 4;
 			break;
 		case PURPLE:
 			setImage("mechantFinalFinalViolet");
 			setContactDamage(2);
-			speed = 2;
+			speed = 5;
 			break;
 		case BOSS:
+			setImage("gray_1");
 			setContactDamage(5);
-			speed = 3;
+			speed = 6;
 			break;
 		}
 		this.setPosition(0,0);
 	}
 	
 	public void update (GameContainer container, StateBasedGame game, int delta) {
+		/* Méthode exécutée environ 60 fois par seconde */
 		
+		float x = this.getBehavior().influencedMove()[0];
+		float y = this.getBehavior().influencedMove()[1];
+		move(x,y);
 	}
 
 	public void render (GameContainer container, StateBasedGame game, Graphics context) {
-		
+		/* Méthode exécutée environ 60 fois par seconde */
+
+		context.drawImage( getSprite(), posX, posY, posX+size, posY+size, 0, 0, getSprite().getWidth(), getSprite().getHeight() );
 	}
 	
 	

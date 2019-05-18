@@ -2,17 +2,14 @@ package games.phoenix.enemies;
 
 import java.io.File;
 
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.state.StateBasedGame;
 
 import app.AppLoader;
 import games.phoenix.Player;
 import games.phoenix.World;
+import games.phoenix.enemies.Enemy.EnemyColor;
 
-public class EnemyTest extends Enemy{
-	
+public class EnemyBoss extends Enemy{
 	static{
 		playerSpriteSheet[0] = AppLoader.loadPicture(World.IMAGES + File.separator + "enemies" + File.separator + "gray_0.png");
 		playerSpriteSheet[1] = AppLoader.loadPicture(World.IMAGES + File.separator + "enemies" + File.separator + "gray_1.png");
@@ -20,9 +17,9 @@ public class EnemyTest extends Enemy{
 		playerSpriteSheet[3] = AppLoader.loadPicture(World.IMAGES + File.separator + "enemies" + File.separator + "gray_3.png");
 	}
 	
-	public EnemyTest() throws SlickException
+	public EnemyBoss() throws SlickException
 	{
-		super(0, "Test", EnemyColor.PURPLE);
+		super(0, "boss", EnemyColor.BOSS);
 	}
 	
 	/*

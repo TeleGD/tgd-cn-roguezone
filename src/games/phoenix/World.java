@@ -8,14 +8,25 @@ import org.newdawn.slick.state.StateBasedGame;
 import app.AppGame;
 import app.AppInput;
 import app.AppWorld;
+import games.phoenix.enemies.EnemyBlue;
+import games.phoenix.enemies.EnemyBoss;
+import games.phoenix.enemies.EnemyGreen;
+import games.phoenix.enemies.EnemyPurple;
+import games.phoenix.enemies.EnemyRed;
 import games.phoenix.enemies.EnemyTest;
+import games.phoenix.enemies.EnemyYellow;
 
 public class World extends AppWorld {
 
 	public static String IMAGES = "/images/phoenix";
 
 	private Player player;
-	private EnemyTest enemy;
+	private EnemyBlue enemyb;
+	private EnemyYellow enemyj;
+	private EnemyRed enemyr;
+	private EnemyGreen enemyg;
+	private EnemyPurple enemyv;
+	private EnemyBoss enemyboss;
 	private String log;
 	private int height;
 	private int width;
@@ -40,8 +51,19 @@ public class World extends AppWorld {
 		int n = appGame.appPlayers.size ();
 		this.player = new Player(appGame.appPlayers.get(0), this);
 		try {
-			this.enemy = new EnemyTest();
-			this.enemy.init(enemy,player);
+			this.enemyb = new EnemyBlue();
+			this.enemyb.init(enemyb,player);
+			this.enemyr = new EnemyRed();
+			this.enemyr.init(enemyr,player);
+			this.enemyj = new EnemyYellow();
+			this.enemyj.init(enemyj,player);
+			this.enemyg = new EnemyGreen();
+			this.enemyg.init(enemyg,player);
+			this.enemyv = new EnemyPurple();
+			this.enemyv.init(enemyv,player);
+			this.enemyboss = new EnemyBoss();
+			this.enemyboss.init(enemyboss,player);
+			
 		}
 		catch (Throwable t)
 		{
@@ -105,7 +127,12 @@ public class World extends AppWorld {
 		super.update (container, game, delta);
 		
 		player.update(container, game, delta);
-		enemy.update(container, game, delta);
+		enemyb.update(container, game, delta);
+		enemyr.update(container, game, delta);
+		enemyj.update(container, game, delta);
+		enemyg.update(container, game, delta);
+		enemyv.update(container, game, delta);
+		enemyboss.update(container, game, delta);
 	}
 
 	@Override
@@ -117,7 +144,12 @@ public class World extends AppWorld {
 		}
 
 		player.render(container, game, context);
-		enemy.render(container, game, context);
+		enemyb.render(container, game, context);
+		enemyr.render(container, game, context);
+		enemyj.render(container, game, context);
+		enemyg.render(container, game, context);
+		enemyv.render(container, game, context);
+		enemyboss.render(container, game, context);
 	}
 
 	/**
