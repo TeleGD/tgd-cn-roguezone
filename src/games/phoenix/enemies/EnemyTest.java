@@ -4,11 +4,9 @@ import java.io.File;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
-import app.AppInput;
 import app.AppLoader;
 import games.phoenix.Player;
 import games.phoenix.World;
@@ -24,7 +22,7 @@ public class EnemyTest extends Enemy{
 	
 	public EnemyTest() throws SlickException
 	{
-		super(0, "Test");
+		super(0, "Test", EnemyColor.PURPLE);
 	}
 	
 	public void update (GameContainer container, StateBasedGame game, int delta) {
@@ -38,7 +36,7 @@ public class EnemyTest extends Enemy{
 	public void render (GameContainer container, StateBasedGame game, Graphics context) {
 		/* Méthode exécutée environ 60 fois par seconde */
 
-		context.drawImage( playerSpriteSheet[0], posX, posY);
+		context.drawImage( getSprite(), posX, posY);
 	}
 	
 	/*
@@ -48,6 +46,6 @@ public class EnemyTest extends Enemy{
 	public void init(Enemy enemy, Player player) 
 	{
 		setBehavior(new EnemyBehavior(enemy, player));
-		getBehavior().setPlayerInfluence(EnemyBehavior.interacting.FLEEING);
+		getBehavior().setPlayerInfluence(EnemyBehavior.interacting.COMING);
 	}
 }
