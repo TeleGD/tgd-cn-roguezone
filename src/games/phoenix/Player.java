@@ -40,6 +40,8 @@ public class Player {
 	private float speedY;
 	private int height;
 	private int width;
+	private float oldPosX;
+	private float oldPosY;
 	private float posX;
 	private float posY;
 	private Ellipse headHitbox;
@@ -89,6 +91,14 @@ public class Player {
 		move(input, delta);
 
 	}
+	
+	/**
+	 * Méthode appellée 60 fois par seconde par World pour modifier d'afficher le joueur
+	 */
+	public void render(GameContainer container, StateBasedGame game, Graphics context) {
+		/* Méthode exécutée environ 60 fois par seconde */
+		context.drawImage(playerSpritSheet[facing], posX, posY);
+	}
 
 	/**
 	 * Gestion des mouvements du joueur
@@ -106,16 +116,20 @@ public class Player {
 			speedX = speedY = 0;
 		}
 
-		posX += speedX*delta;
-		posY += speedY*delta;
+		posX = oldPosX + speedX*delta;
+		posY = oldPosY + speedY*delta;
 	}
-
-	/**
-	 * Méthode appellée 60 fois par seconde par World pour modifier d'afficher le joueur
-	 */
-	public void render(GameContainer container, StateBasedGame game, Graphics context) {
-		/* Méthode exécutée environ 60 fois par seconde */
-		context.drawImage(playerSpritSheet[facing], posX, posY);
+	
+	public void confirmMove(boolean confirm) {
+		if (confirm) {
+			oldPosX = posX;
+			oldPosY = posY;
+			
+			hitbox.setLocation(posX, posY);
+		} else {
+			posX = oldPosX;
+			posY = oldPosY;
+		}
 	}
 
 	/**

@@ -51,17 +51,17 @@ public class World extends AppWorld {
 		int n = appGame.appPlayers.size ();
 		this.player = new Player(appGame.appPlayers.get(0), this);
 		try {
-			this.enemyb = new EnemyBlue();
+			this.enemyb = new EnemyBlue(0,0);
 			this.enemyb.init(enemyb,player);
-			this.enemyr = new EnemyRed();
+			this.enemyr = new EnemyRed(0,0);
 			this.enemyr.init(enemyr,player);
-			this.enemyj = new EnemyYellow();
+			this.enemyj = new EnemyYellow(0,0);
 			this.enemyj.init(enemyj,player);
-			this.enemyg = new EnemyGreen();
+			this.enemyg = new EnemyGreen(0,0);
 			this.enemyg.init(enemyg,player);
-			this.enemyv = new EnemyPurple();
+			this.enemyv = new EnemyPurple(0,0);
 			this.enemyv.init(enemyv,player);
-			this.enemyboss = new EnemyBoss();
+			this.enemyboss = new EnemyBoss(0,0);
 			this.enemyboss.init(enemyboss,player);
 			
 		}

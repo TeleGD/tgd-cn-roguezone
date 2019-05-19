@@ -3,6 +3,9 @@ package games.phoenix.enemies;
 import java.io.File;
 
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Ellipse;
+import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.Shape;
 
 import app.AppLoader;
 import games.phoenix.Player;
@@ -16,10 +19,13 @@ public class EnemyBoss extends Enemy{
 		playerSpriteSheet[2] = AppLoader.loadPicture(World.IMAGES + File.separator + "enemies" + File.separator + "gray_2.png");
 		playerSpriteSheet[3] = AppLoader.loadPicture(World.IMAGES + File.separator + "enemies" + File.separator + "gray_3.png");
 	}
+
+
 	
-	public EnemyBoss() throws SlickException
+	public EnemyBoss(int x, int y) throws SlickException
 	{
-		super(0, "boss", EnemyColor.BOSS);
+		super(0, "boss", x, y, EnemyColor.BOSS);
+		
 	}
 	
 	/*
