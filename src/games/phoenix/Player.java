@@ -89,6 +89,8 @@ public class Player {
 		AppInput input = (AppInput) container.getInput ();
 		
 		move(input, delta);
+		//TODO remove
+		confirmMove(true);
 
 	}
 	

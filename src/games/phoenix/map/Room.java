@@ -39,15 +39,17 @@ public class Room {
 	/**
 	 * Instancie l'objet Room selon sa difficulté
 	 * 
-	 * 1 - 4 : salle avec des ennemies (nombre et niveau des ennemies)
-	 * 0 : salle de départ
-	 * -1 : salle spéciale //TODO à définir
-	 * @param difficulty
-	 * @param doors 
-	 * 	- 0 haut
-	 * 	- 1 bas
-	 * 	- 2 gauche
-	 * 	- 3 bas
+	 * @param difficulty  
+	 * 1 - 4 : salle avec des ennemies (nombre et niveau des ennemies)  
+	 * 0 : salle de départ  
+	 * -1 : salle d'item  
+	 * -2 : salle de boss  
+	 * -3 : sortie  
+	 * @param doors  
+	 * 	- 0 haut  
+	 * 	- 1 bas  
+	 * 	- 2 gauche  
+	 * 	- 3 bas  
 	 */
 	public Room(World world, int difficulty) {
 		this.difficulty = difficulty;
