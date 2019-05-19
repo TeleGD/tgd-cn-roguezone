@@ -3,14 +3,12 @@ package games.phoenix.bonuses;
 import app.AppLoader;
 import games.phoenix.Bonus;
 import games.phoenix.Player;
-
 import games.phoenix.World;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-
 import org.newdawn.slick.state.StateBasedGame;
 
-public class Seringue extends Bonus {
+public class SeringueInfecte extends Bonus {
 
     private boolean activated, deleted;
 
@@ -18,7 +16,7 @@ public class Seringue extends Bonus {
         sprite = AppLoader.loadPicture(World.IMAGES + "./phoenix/bonus/Seringue.png");
     }
 
-    public Seringue(int caseX, int caseY){
+    public SeringueInfecte(int caseX, int caseY){
         super (caseX, caseY);
         this.activated = false;
         this.deleted = false;
@@ -27,7 +25,7 @@ public class Seringue extends Bonus {
     public void activate (Player player) {
         if (!isActivated ()) {
             this.activated = true;
-            player.addLife (1);
+            player.addLife (-1);
             this.deleted = true;
         }
     }
@@ -45,5 +43,4 @@ public class Seringue extends Bonus {
     public boolean isDeleted () {
         return this.deleted;
     }
-
 }

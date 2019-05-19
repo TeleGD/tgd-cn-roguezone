@@ -17,9 +17,9 @@ public class DistanceEnemy extends Enemy{
 	 * @param img : arborescence de l'image
 	 * @throws SlickException : si l'image n'a pas été trouvée ou pas bien affectée 
 	 */
-	public DistanceEnemy(int id, String name) throws SlickException
+	public DistanceEnemy(int id, String name, int x, int y, EnemyColor i) throws SlickException
 	{
-		super(id,name);
+		super(id,name,x,y,i);
 	}
 	
 	/**
