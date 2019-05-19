@@ -15,7 +15,7 @@ public class AntiCorps extends Bonus {
     private boolean activated, deleted;
 
     static{
-        sprite = AppLoader.loadPicture(World.IMAGES + "Chemin à depuis phoenix");
+        sprite = AppLoader.loadPicture(World.IMAGES + "./phoenix/bonus/Anticorps.png");
     }
 
     public AntiCorps(int caseX, int caseY){
