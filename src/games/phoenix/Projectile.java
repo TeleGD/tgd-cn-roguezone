@@ -2,12 +2,14 @@ package games.phoenix;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Circle;
+import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.state.StateBasedGame;
 
 import app.AppInput;
 
-public class Projectile{
+public class Projectile {
 
     private float posX;
     private float posY;
@@ -91,6 +93,6 @@ public class Projectile{
     public void render(GameContainer container, StateBasedGame game, Graphics context) {
 		/* Méthode exécutée environ 60 fois par seconde */
         
-       // context.drawImage(hitbox, posX, posY);
+        context.draw((Shape)hitbox);
 	}
 }

@@ -1,6 +1,7 @@
 package games.phoenix;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import org.newdawn.slick.Image;
 import org.newdawn.slick.GameContainer;
@@ -13,6 +14,7 @@ import org.newdawn.slick.state.StateBasedGame;
 import app.AppInput;
 import app.AppLoader;
 import app.AppPlayer;
+import games.phoenix.map.Room;
 
 /**
  * Classe gérant le joueur
@@ -48,19 +50,22 @@ public class Player {
 	private Rectangle bodyHitbox;
 	private Shape hitbox;
 	private int facing;
+	private int fireRate;
+	private int delay;
+	private Room room;
 
 	/**
 	 * Constructeur du joueur par défaut
 	 * @param appPlayer
 	 */
 	public Player(AppPlayer appPlayer, World world) {
-		this(world, appPlayer.getControllerID(), appPlayer.getName(), 100, 100, 0,100,0.3f, 0f, 0f, 80, 80);
+		this(world, appPlayer.getControllerID(), appPlayer.getName(), 100, 100, 0,100,0.3f, 0f, 0f, 80, 80, 50);
 	}
 	
 	/**
 	 * Constructeur à paramètres du joueur
 	 */
-	public Player(World world, int controllerID, String name, int currentLife, int maxLife,int currentShield,int maxShield ,float speed, float speedX, float speedY, int height, int width){
+	public Player(World world, int controllerID, String name, int currentLife, int maxLife,int currentShield,int maxShield ,float speed, float speedX, float speedY, int height, int width, int fireRate){
 		this.controllerID = controllerID;
 		this.name = name;
 		this.currentLife = currentLife;
@@ -76,6 +81,9 @@ public class Player {
 		this.bodyHitbox = new Rectangle(posX + 30, posY + 46, 22, 32);
 		this.hitbox = headHitbox.union(bodyHitbox)[0];
 		this.facing = 1;
+		this.fireRate = fireRate;
+		this.delay = 0;
+		this.room = new Room(world, 2);  
 	}
 
 	/**
@@ -92,6 +100,30 @@ public class Player {
 		//TODO remove
 		confirmMove(true);
 
+		if(delay > 0){
+			delay--;
+		}
+		else{
+			if(input.isButtonPressed(AppInput.BUTTON_A, controllerID)){
+				facing = 1;
+				System.out.println("LE BOUTTON A");
+			}
+			
+			if(input.isButtonPressed(AppInput.BUTTON_B, controllerID)){
+				facing = 3;
+			}
+			
+			if(input.isButtonPressed(AppInput.BUTTON_X, controllerID)){
+				facing = 2;
+			}
+
+			if(input.isButtonPressed(AppInput.BUTTON_Y, controllerID)){
+				facing = 0;
+			}
+
+			room.addProjectile(new Projectile(posX, posY, facing));
+			delay = fireRate;
+		}
 	}
 	
 	/**
@@ -283,5 +315,25 @@ public class Player {
 
 	public void setWidth(int width){
 		this.width = width;
+	}
+
+	public Shape getHitbox(){
+		return this.hitbox;
+	}
+
+	public void setSpeed(float speed) {
+		this.speed = speed;
+	}
+
+	public float getSpeed() {
+		return this.speed;
+	}
+
+	public void setFireRate(int fireRate) {
+		this.fireRate = fireRate;
+	}
+
+	public int getFireRate() {
+		return fireRate;
 	}
 }
