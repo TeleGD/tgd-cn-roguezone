@@ -326,4 +326,12 @@ public class Player {
 	public float getSpeed() {
 		return this.speed;
 	}
+
+	public void setFireRate(int fireRate) {
+		this.fireRate = fireRate;
+	}
+
+	public int getFireRate() {
+		return fireRate;
+	}
 }
