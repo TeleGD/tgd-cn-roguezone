@@ -282,4 +282,12 @@ public class Player {
 	public void setWidth(int width){
 		this.width = width;
 	}
+
+	public void setSpeed(float speed) {
+		this.speed = speed;
+	}
+
+	public float getSpeed() {
+		return this.speed;
+	}
 }
