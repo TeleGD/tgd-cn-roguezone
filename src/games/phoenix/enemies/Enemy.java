@@ -1,5 +1,6 @@
 package games.phoenix.enemies;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -63,33 +64,33 @@ public class Enemy {
 		case GREEN:
 			setImage("mechantFinalFinal");
 			setContactDamage(2);
-			speed = 2;
+			speed = (float)1.2;
 			hitbox = new Ellipse(posX, posY, size/2, size/2);
 			break;
 		case RED:
 			setImage("mechantFinalFinalRouge");
 			setContactDamage(2);
-			speed = 3;
+			speed = (float)1.4;
 			hitbox = new Ellipse(posX, posY, size/2, size/2);
 			break;
 		case YELLOW:
 			setImage("mechantFinalFinalJaune");
 			setContactDamage(2);
-			speed = 4;
+			speed = (float)1.6;
 			hitbox = new Ellipse(posX, posY, size/2, size/2);
 			break;
 		case PURPLE:
 			setImage("mechantFinalFinalViolet");
 			setContactDamage(2);
-			speed = 5;
+			speed = (float) 1.8;
 			hitbox = new Ellipse(posX, posY, size/2, size/2);
 			break;
 		case BOSS:
 			setImage("gray_1");
 			setContactDamage(5);
-			speed = 5;
-			this.headHitbox = new Ellipse(posX + 40, posY + 26, 26, 24);
-			this.bodyHitbox = new Rectangle(posX + 30, posY + 46, 22, 32);
+			speed = 2;
+			this.headHitbox = new Ellipse(posX + 48, posY + 32, 32, 30);
+			this.bodyHitbox = new Rectangle(posX + 36, posY + 55, 26, 38);
 			this.hitbox = headHitbox.union(bodyHitbox)[0];
 			break;
 		}
@@ -108,6 +109,7 @@ public class Enemy {
 		/* Méthode exécutée environ 60 fois par seconde */
 
 		context.drawImage( getSprite(), posX, posY, posX+size, posY+size, 0, 0, getSprite().getWidth(), getSprite().getHeight() );
+		context.setColor(Color.green);
 		context.draw(hitbox);
 	}
 	
@@ -152,7 +154,8 @@ public class Enemy {
 	{
 		posX += vx;
 		posY += vy;
-		hitbox = new Ellipse(posX, posY, size, size);
+		
+		hitbox.setLocation(posX, posY);
 	}
 	
 	/**
