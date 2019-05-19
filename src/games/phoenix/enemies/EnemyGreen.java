@@ -11,9 +11,9 @@ import games.phoenix.enemies.Enemy.EnemyColor;
 
 public class EnemyGreen extends Enemy{
 	
-	public EnemyGreen() throws SlickException
+	public EnemyGreen(int x, int y) throws SlickException
 	{
-		super(0, "green", EnemyColor.GREEN);
+		super(0, "green", x, y, EnemyColor.GREEN);
 	}
 	
 	/*

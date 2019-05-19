@@ -20,9 +20,9 @@ public class EnemyTest extends Enemy{
 		playerSpriteSheet[3] = AppLoader.loadPicture(World.IMAGES + File.separator + "enemies" + File.separator + "gray_3.png");
 	}
 	
-	public EnemyTest() throws SlickException
+	public EnemyTest(int x, int y) throws SlickException
 	{
-		super(0, "Test", EnemyColor.PURPLE);
+		super(0, "Test", x, y, EnemyColor.PURPLE);
 	}
 	
 	/*

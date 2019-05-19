@@ -4,6 +4,9 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Ellipse;
+import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.state.StateBasedGame;
 
 import app.AppLoader;
@@ -24,6 +27,9 @@ public class Enemy {
 	private int size;
 	private int damage;
 	private float speed = 2;
+	private Ellipse headHitbox;
+	private Rectangle bodyHitbox;
+	private Shape hitbox;
 	private EnemyColor interaction = EnemyColor.GREEN;
 	
 	protected static Image playerSpriteSheet[] = new Image[4];
@@ -40,7 +46,7 @@ public class Enemy {
 	 * @throws SlickException :  si l'image n'a pas été trouvée ou pas bien affectée
 	 */
 	
-	public Enemy (int id, String name, EnemyColor i) throws SlickException {
+	public Enemy (int id, String name, int x, int y, EnemyColor i) throws SlickException {
 
 		this.name = name;
 		this.id = id;
@@ -52,34 +58,42 @@ public class Enemy {
 			setImage("mechantFinalFinalBleu");
 			setContactDamage(2);
 			speed = 1;
+			hitbox = new Ellipse(posX, posY, size/2, size/2);
 			break;
 		case GREEN:
 			setImage("mechantFinalFinal");
 			setContactDamage(2);
 			speed = 2;
+			hitbox = new Ellipse(posX, posY, size/2, size/2);
 			break;
 		case RED:
 			setImage("mechantFinalFinalRouge");
 			setContactDamage(2);
 			speed = 3;
+			hitbox = new Ellipse(posX, posY, size/2, size/2);
 			break;
 		case YELLOW:
 			setImage("mechantFinalFinalJaune");
 			setContactDamage(2);
 			speed = 4;
+			hitbox = new Ellipse(posX, posY, size/2, size/2);
 			break;
 		case PURPLE:
 			setImage("mechantFinalFinalViolet");
 			setContactDamage(2);
 			speed = 5;
+			hitbox = new Ellipse(posX, posY, size/2, size/2);
 			break;
 		case BOSS:
 			setImage("gray_1");
 			setContactDamage(5);
-			speed = 6;
+			speed = 5;
+			this.headHitbox = new Ellipse(posX + 40, posY + 26, 26, 24);
+			this.bodyHitbox = new Rectangle(posX + 30, posY + 46, 22, 32);
+			this.hitbox = headHitbox.union(bodyHitbox)[0];
 			break;
 		}
-		this.setPosition(0,0);
+		this.setPosition(x,y);
 	}
 	
 	public void update (GameContainer container, StateBasedGame game, int delta) {
@@ -94,6 +108,7 @@ public class Enemy {
 		/* Méthode exécutée environ 60 fois par seconde */
 
 		context.drawImage( getSprite(), posX, posY, posX+size, posY+size, 0, 0, getSprite().getWidth(), getSprite().getHeight() );
+		context.draw(hitbox);
 	}
 	
 	
@@ -137,6 +152,7 @@ public class Enemy {
 	{
 		posX += vx;
 		posY += vy;
+		hitbox = new Ellipse(posX, posY, size, size);
 	}
 	
 	/**
