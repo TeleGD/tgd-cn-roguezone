@@ -11,6 +11,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import app.AppLoader;
 import games.phoenix.Player;
+import games.phoenix.Projectile;
 import games.phoenix.World;
 import games.phoenix.enemies.Enemy;
 
@@ -35,6 +36,7 @@ public class Room {
 	private Player player;
 	private ArrayList<Enemy> enemies = new ArrayList<>();
 	private ArrayList<Integer> doors = new ArrayList<>();
+	private ArrayList<Projectile> projectiles = new ArrayList<>();
 
 	/**
 	 * Instancie l'objet Room selon sa difficulté
@@ -116,4 +118,7 @@ public class Room {
 		}
 	}
 	
+	public void addProjectile(Projectile p){
+		this.projectiles.add(p);
+	}
 }
