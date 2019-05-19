@@ -35,11 +35,15 @@ public class Player {
 	private String name;
 	private int currentLife;	
 	private int maxLife;
+	private int currentShield;
+	private int maxShield;
 	private float speed;
 	private float speedX;
 	private float speedY;
 	private int height;
 	private int width;
+	private float oldPosX;
+	private float oldPosY;
 	private float posX;
 	private float posY;
 	private Ellipse headHitbox;
@@ -55,17 +59,19 @@ public class Player {
 	 * @param appPlayer
 	 */
 	public Player(AppPlayer appPlayer, World world) {
-		this(world, appPlayer.getControllerID(), appPlayer.getName(), 100, 100, 0.3f, 0f, 0f, 80, 80, 50);
+		this(world, appPlayer.getControllerID(), appPlayer.getName(), 100, 100, 0,100,0.3f, 0f, 0f, 80, 80, 50);
 	}
 	
 	/**
 	 * Constructeur à paramètres du joueur
 	 */
-	public Player(World world, int controllerID, String name, int currentLife, int maxLife, float speed, float speedX, float speedY, int height, int width, int fireRate){
+	public Player(World world, int controllerID, String name, int currentLife, int maxLife,int currentShield,int maxShield ,float speed, float speedX, float speedY, int height, int width, int fireRate){
 		this.controllerID = controllerID;
 		this.name = name;
 		this.currentLife = currentLife;
 		this.maxLife = maxLife;
+		this.currentLife = currentLife;
+		this.maxShield = maxShield;
 		this.speed = speed;
 		this.height = height;
 		this.width = width;
@@ -77,7 +83,7 @@ public class Player {
 		this.facing = 1;
 		this.fireRate = fireRate;
 		this.delay = 0;
-		this.room = new Room(world, 2, new ArrayList<>());  
+		this.room = new Room(world, 2);  
 	}
 
 	/**
@@ -117,6 +123,14 @@ public class Player {
 			delay = fireRate;
 		}
 	}
+	
+	/**
+	 * Méthode appellée 60 fois par seconde par World pour modifier d'afficher le joueur
+	 */
+	public void render(GameContainer container, StateBasedGame game, Graphics context) {
+		/* Méthode exécutée environ 60 fois par seconde */
+		context.drawImage(playerSpritSheet[facing], posX, posY);
+	}
 
 	/**
 	 * Gestion des mouvements du joueur
@@ -134,16 +148,20 @@ public class Player {
 			speedX = speedY = 0;
 		}
 
-		posX += speedX*delta;
-		posY += speedY*delta;
+		posX = oldPosX + speedX*delta;
+		posY = oldPosY + speedY*delta;
 	}
-
-	/**
-	 * Méthode appellée 60 fois par seconde par World pour modifier d'afficher le joueur
-	 */
-	public void render(GameContainer container, StateBasedGame game, Graphics context) {
-		/* Méthode exécutée environ 60 fois par seconde */
-		context.drawImage(playerSpritSheet[facing], posX, posY);
+	
+	public void confirmMove(boolean confirm) {
+		if (confirm) {
+			oldPosX = posX;
+			oldPosY = posY;
+			
+			hitbox.setLocation(posX, posY);
+		} else {
+			posX = oldPosX;
+			posY = oldPosY;
+		}
 	}
 
 	/**
@@ -200,7 +218,7 @@ public class Player {
 
 	/**
 	 * ajout de vie
-	 * param nombre de vie à rajouter
+	 * @param life: nombre de vie à rajouter
 	 */
 	public void addLife(int life){
 		if(this.getCurrentLife() + life > this.getMaxLife()){
@@ -210,6 +228,52 @@ public class Player {
 			this.setCurrentLife(this.getCurrentLife() + life);
 		}
 	}
+
+	/**
+	 * ajout d'une valeur bouclier
+	 * @param shield : nombre de point de bouclier à rajouter
+	 */
+	public void addShield(int shield){
+		if(this.getCurrentShield() + shield > this.getMaxShield()){
+			this.setCurrentShield(this.getMaxShield());
+		}
+		else{
+			this.setCurrentShield(this.getCurrentShield() + shield);
+		}
+	}
+
+	/**
+	 * met la valeur du bouclier à la valeur demandée
+	 * @param newShield : nouvelle valeur du shield
+	 */
+	public void setCurrentShield(int newShield) {
+		this.currentShield = newShield;
+	}
+
+
+	/**
+	 * renvoie la valeur du bouclier actuel
+	 */
+	public int getCurrentShield(){
+		return this.currentShield;
+	}
+
+
+	/**
+	 * place la valeur du bouclier max à la valeur donnée
+	 * @param maxShield : valeur max à donner au shield
+	 */
+	public void setMaxShield(int maxShield){
+		this.maxShield = maxShield;
+	}
+
+	/**
+	 * renvoie la valeur du bouclier max actuel
+	 */
+	public int getMaxShield(){
+		return this.maxShield;
+	}
+
 
 	/**
 	 * met la vie maximale à la vie demandée
@@ -253,5 +317,13 @@ public class Player {
 
 	public Shape getHitbox(){
 		return this.hitbox;
+	}
+
+	public void setSpeed(float speed) {
+		this.speed = speed;
+	}
+
+	public float getSpeed() {
+		return this.speed;
 	}
 }

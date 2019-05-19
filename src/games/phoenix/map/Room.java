@@ -51,10 +51,11 @@ public class Room {
 	 * 	- 2 gauche
 	 * 	- 3 bas
 	 */
-	public Room(World world, int difficulty, ArrayList<Integer> doors) {
+	public Room(World world, int difficulty) {
 		this.difficulty = difficulty;
-		this.doors = doors;
 		this.player = world.getPlayer();
+		
+		this.doors = new ArrayList<>();
 		
 		this.worldWidth = world.getWidth();
 		this.worldHeight = world.getHeight();
@@ -65,6 +66,10 @@ public class Room {
 		this.doorWidth = 148 * worldWidth / 1920;
 		
 		init();
+	}
+	
+	public void setDoors(ArrayList<Integer> doors) {
+		this.doors = doors;
 	}
 	
 	public void update (GameContainer container, StateBasedGame game, int delta) {
