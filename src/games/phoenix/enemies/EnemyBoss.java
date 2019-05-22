@@ -3,14 +3,9 @@ package games.phoenix.enemies;
 import java.io.File;
 
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.geom.Ellipse;
-import org.newdawn.slick.geom.Rectangle;
-import org.newdawn.slick.geom.Shape;
-
 import app.AppLoader;
 import games.phoenix.Player;
 import games.phoenix.World;
-import games.phoenix.enemies.Enemy.EnemyColor;
 
 public class EnemyBoss extends Enemy{
 	

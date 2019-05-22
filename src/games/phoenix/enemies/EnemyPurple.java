@@ -1,13 +1,8 @@
 package games.phoenix.enemies;
 
-import java.io.File;
-
 import org.newdawn.slick.SlickException;
 
-import app.AppLoader;
 import games.phoenix.Player;
-import games.phoenix.World;
-import games.phoenix.enemies.Enemy.EnemyColor;
 
 public class EnemyPurple extends Enemy{
 	
