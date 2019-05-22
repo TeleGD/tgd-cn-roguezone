@@ -13,13 +13,14 @@ import games.phoenix.enemies.EnemyBoss;
 import games.phoenix.enemies.EnemyGreen;
 import games.phoenix.enemies.EnemyPurple;
 import games.phoenix.enemies.EnemyRed;
-import games.phoenix.enemies.EnemyTest;
 import games.phoenix.enemies.EnemyYellow;
+import games.phoenix.map.Map;
 
 public class World extends AppWorld {
 
 	public static String IMAGES = "/images/phoenix";
-
+	
+	private Map map;
 	private Player player;
 	private EnemyBlue enemyb;
 	private EnemyYellow enemyj;
@@ -48,8 +49,8 @@ public class World extends AppWorld {
 	public void play (GameContainer container, StateBasedGame game) {
 		/* Méthode exécutée une unique fois au début du jeu */
 		AppGame appGame = (AppGame) game;
-		int n = appGame.appPlayers.size ();
 		this.player = new Player(appGame.appPlayers.get(0), this);
+		map = new Map(10, this);
 		try {
 			this.enemyb = new EnemyBlue(0,0);
 			this.enemyb.init(enemyb,player);
@@ -69,9 +70,6 @@ public class World extends AppWorld {
 		{
 			
 		}
-		// for (int i = 0; i < n; i++) {
-		// 	this.player = new Player (appGame.appPlayers.get (i), this);
-		// }
 		this.log = "";
 		System.out.println ("PLAY");
 	}
@@ -99,7 +97,8 @@ public class World extends AppWorld {
 		/* Méthode exécutée environ 60 fois par seconde */
 		super.poll (container, game, user);
 		AppInput input = (AppInput) user;
-		this.log = "";
+		
+		/*this.log = "";
 		
 		String name = player.getName ();
 		int controllerID = player.getControllerID ();
@@ -119,6 +118,7 @@ public class World extends AppWorld {
 				this.log += "(" + name + ").getAxisValue: " + i + " -> " + j + "\n";
 			}
 		}
+		*/
 	}
 
 	@Override

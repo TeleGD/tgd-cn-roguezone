@@ -50,6 +50,7 @@ public class Player {
 	private Rectangle bodyHitbox;
 	private Shape hitbox;
 	private int facing;
+	private int frameLock = 0;
 	private int fireRate;
 	private int delay;
 	private Room room;
@@ -83,7 +84,7 @@ public class Player {
 		this.facing = 1;
 		this.fireRate = fireRate;
 		this.delay = 0;
-		this.room = new Room(world, 2);  
+		this.room = new Room(world, 2,5,5);
 	}
 
 	/**
@@ -104,25 +105,32 @@ public class Player {
 			delay--;
 		}
 		else{
+			boolean fired = false;
 			if(input.isButtonPressed(AppInput.BUTTON_A, controllerID)){
 				facing = 1;
-				System.out.println("LE BOUTTON A");
+				fired = true;
 			}
 			
 			if(input.isButtonPressed(AppInput.BUTTON_B, controllerID)){
 				facing = 3;
+				fired = true;
 			}
 			
 			if(input.isButtonPressed(AppInput.BUTTON_X, controllerID)){
 				facing = 2;
+				fired = true;
 			}
 
 			if(input.isButtonPressed(AppInput.BUTTON_Y, controllerID)){
 				facing = 0;
+				fired = true;
 			}
-
-			room.addProjectile(new Projectile(posX, posY, facing));
-			delay = fireRate;
+			
+			if (fired) {
+				frameLock = 15;
+				room.addProjectile(new Projectile(posX, posY, facing));
+				delay = fireRate;
+			}
 		}
 	}
 	
@@ -141,12 +149,14 @@ public class Player {
 		speedX = input.getAxisValue(AppInput.AXIS_XL, controllerID) * speed;
 		speedY = input.getAxisValue(AppInput.AXIS_YR, controllerID) * speed;
 
-		if (speedY < 0 && Math.abs(speedY) >Math.abs(speedX)) facing = 0;
-		if (speedY > 0 && Math.abs(speedX) < Math.abs(speedY)) facing = 1;
-		if (speedX < 0 && Math.abs(speedX) >= Math.abs(speedY)) facing = 2;
-		if (speedX > 0 && Math.abs(speedY) <= Math.abs(speedX)) facing = 3;
+		if (frameLock > 0) frameLock--;
+		
+		if (speedY < 0 && Math.abs(speedY) >Math.abs(speedX) && frameLock==0) facing = 0;
+		if (speedY > 0 && Math.abs(speedX) < Math.abs(speedY) && frameLock==0) facing = 1;
+		if (speedX < 0 && Math.abs(speedX) >= Math.abs(speedY) && frameLock==0) facing = 2;
+		if (speedX > 0 && Math.abs(speedY) <= Math.abs(speedX) && frameLock==0) facing = 3;
 		if (speedX < 0.05f && speedX > -0.05f && speedY < 0.05f && speedY > -0.05f) {
-			facing = 1;
+			if (frameLock==0) facing = 1;
 			speedX = speedY = 0;
 		}
 

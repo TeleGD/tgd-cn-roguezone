@@ -8,7 +8,7 @@ import app.AppGame;
 public final class Main {
 
 	public static final void main (String [] arguments) {
-		String title = "Sans titre";
+		String title = "Phoenix-truc";
 		int width = 1280;
 		int height = 720;
 		boolean fullscreen = false;

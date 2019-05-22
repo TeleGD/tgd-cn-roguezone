@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.StateBasedGame;
 
 import app.AppLoader;
@@ -23,10 +22,34 @@ import games.phoenix.enemies.Enemy;
  */
 public class Room {
 	
+	/*
+	 * Numéro de l'image selon les portes : décomposition binaire
+	 * [3 2 1 0]
+	 * 0 : {}
+	 * 1 : {0}
+	 * 2 : {1}
+	 * 3 : {0,1}
+	 * 4 : {2}
+	 * 5 : {0,2}
+	 * 6 : {1,2}
+	 * 7 : {0,1,2}
+	 * 8 : {3}
+	 * 9 : {0,3}
+	 * 10 : {1,3}
+	 * 11 : {0,1,3}
+	 * 12 : {2,3}
+	 * 13 : {0,2,3}
+	 * 14 : {1,2,3}
+	 * 15 : {0,1,2,3}
+	 */
+	
 	private Image fond = AppLoader.loadPicture(World.IMAGES+File.separator+"rooms"+File.separator+"room_15.png");
 	
 	private int worldWidth;
 	private int worldHeight;
+	
+	private int line;
+	private int column;
 	
 	private int xMargin;
 	private int yMargin;
@@ -53,7 +76,7 @@ public class Room {
 	 * 	- 2 gauche  
 	 * 	- 3 bas  
 	 */
-	public Room(World world, int difficulty) {
+	public Room(World world, int line, int column, int difficulty) {
 		this.difficulty = difficulty;
 		this.player = world.getPlayer();
 		
@@ -62,21 +85,24 @@ public class Room {
 		this.worldWidth = world.getWidth();
 		this.worldHeight = world.getHeight();
 		
-		this.xMargin = 64 * worldWidth / 1920;
-		this.yMargin = 64 * worldHeight / 1080;
+		this.xMargin = 104 * worldWidth / 1920;
+		this.yMargin = 104 * worldHeight / 1080;
 		
 		this.doorWidth = 148 * worldWidth / 1920;
 		
 		init();
 	}
 	
-	public void setDoors(ArrayList<Integer> doors) {
-		this.doors = doors;
+	public void addDoor(int door) {
+		this.doors.add(door);
 	}
 	
 	public void update (GameContainer container, StateBasedGame game, int delta) {
 		for (Enemy enemy : enemies) {
 			enemy.update(container, game, delta);
+		}
+		for (Projectile projectile : projectiles) {
+			projectile.update(container, game, delta);
 		}
 		checkPlayerPos();
 	}
@@ -87,15 +113,18 @@ public class Room {
 		for (Enemy enemy : enemies) {
 			enemy.render(container, game, context);
 		}
+		for (Projectile projectile : projectiles) {
+			projectile.render(container, game, context);
+		}
 	}
 	
 	private void checkPlayerPos() {
 		float pos[] = player.getPos();
+		boolean inside = true;
 		
 		if (doors.contains(0) && pos[1] <= yMargin && pos[0]>worldWidth/2-doorWidth/2 && pos[0]<worldWidth/2+doorWidth/2 ) {
 			//TODO
 		}
-		
 		if (doors.contains(1) && pos[1] >= worldHeight-yMargin && pos[0]>worldWidth/2-doorWidth/2 && pos[0]<worldWidth/2+doorWidth/2 ) {
 			//TODO
 		}
@@ -107,8 +136,9 @@ public class Room {
 		}
 		
 		if (pos[0] < xMargin || pos[0] > worldWidth-xMargin || pos[1] < yMargin || pos[1] > worldHeight-yMargin) {
-			// TODO en dehors de l'écran
+			inside = false;
 		}
+		player.confirmMove(inside);
 		
 	}
 	
@@ -127,5 +157,9 @@ public class Room {
 	
 	public void addProjectile(Projectile p){
 		this.projectiles.add(p);
+	}
+	
+	public int getDifficulty() {
+		return difficulty;
 	}
 }
