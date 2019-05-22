@@ -7,12 +7,6 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import app.AppGame;
 import app.AppWorld;
-import games.phoenix.enemies.EnemyBlue;
-import games.phoenix.enemies.EnemyBoss;
-import games.phoenix.enemies.EnemyGreen;
-import games.phoenix.enemies.EnemyPurple;
-import games.phoenix.enemies.EnemyRed;
-import games.phoenix.enemies.EnemyYellow;
 import games.phoenix.map.Map;
 import games.phoenix.map.Room;
 
@@ -28,14 +22,6 @@ public class World extends AppWorld {
 	private int height;
 	private int width;
 	private int size;
-
-	private EnemyBlue enemyb;
-	private EnemyYellow enemyj;
-	private EnemyRed enemyr;
-	private EnemyGreen enemyg;
-	private EnemyPurple enemyv;
-	private EnemyBoss enemyboss;
-	
 	
 	public World (int ID) {
 		super (ID);

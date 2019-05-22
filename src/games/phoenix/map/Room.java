@@ -138,7 +138,7 @@ public class Room {
 		if (doors.contains(2) && pos[0] <= xMargin && pos[1]>worldHeight/2-doorWidth/2 && pos[1]<worldHeight/2+doorWidth/2 ) {
 			player.changeRoom(line,column-1,2);
 		}
-		if (doors.contains(2) && pos[0] >= worldWidth-xMargin && pos[1]>worldHeight/2-doorWidth/2 && pos[1]<worldHeight/2+doorWidth/2 ) {
+		if (doors.contains(3) && pos[0] >= worldWidth-xMargin && pos[1]>worldHeight/2-doorWidth/2 && pos[1]<worldHeight/2+doorWidth/2 ) {
 			player.changeRoom(line,column+1,3);
 		}
 		
