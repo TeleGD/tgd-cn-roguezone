@@ -13,13 +13,6 @@ import games.phoenix.World;
 
 public class EnemyTest extends Enemy{
 	
-	static{
-		playerSpriteSheet[0] = AppLoader.loadPicture(World.IMAGES + File.separator + "enemies" + File.separator + "gray_0.png");
-		playerSpriteSheet[1] = AppLoader.loadPicture(World.IMAGES + File.separator + "enemies" + File.separator + "gray_1.png");
-		playerSpriteSheet[2] = AppLoader.loadPicture(World.IMAGES + File.separator + "enemies" + File.separator + "gray_2.png");
-		playerSpriteSheet[3] = AppLoader.loadPicture(World.IMAGES + File.separator + "enemies" + File.separator + "gray_3.png");
-	}
-	
 	public EnemyTest(int x, int y) throws SlickException
 	{
 		super(0, "Test", x, y, EnemyColor.PURPLE);

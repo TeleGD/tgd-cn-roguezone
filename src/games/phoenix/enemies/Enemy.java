@@ -1,5 +1,7 @@
 package games.phoenix.enemies;
 
+import java.util.HashMap;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -25,16 +27,24 @@ public class Enemy {
 	protected float posY;
 	
 	private int size;
+	private int pv;
 	private int damage;
 	private float speed = 2;
 	private Ellipse headHitbox;
 	private Rectangle bodyHitbox;
 	private Shape hitbox;
 	private EnemyColor interaction = EnemyColor.GREEN;
-	
-	protected static Image playerSpriteSheet[] = new Image[4];
-	
-	private Image sprite;
+	private Image image;
+	protected static HashMap<String, Image> playerSpriteSheet = new HashMap<String, Image>();
+
+	static {
+		playerSpriteSheet.put("Bleu", AppLoader.loadPicture(World.IMAGES + "/enemies/mechantFinalFinalBleu.png"));
+		playerSpriteSheet.put("Rouge", AppLoader.loadPicture(World.IMAGES + "/enemies/mechantFinalFinalRouge.png"));
+		playerSpriteSheet.put("Vert", AppLoader.loadPicture(World.IMAGES + "/enemies/mechantFinalFinal.png"));
+		playerSpriteSheet.put("Jaune", AppLoader.loadPicture(World.IMAGES + "/enemies/mechantFinalFinalJaune.png"));
+		playerSpriteSheet.put("Violet", AppLoader.loadPicture(World.IMAGES + "/enemies/mechantFinalFinalViolet.png"));
+		playerSpriteSheet.put("Boss", AppLoader.loadPicture(World.IMAGES + "/enemies/gray_1.png"));
+	}
 
 	private EnemyBehavior behavior;
 	
@@ -55,39 +65,45 @@ public class Enemy {
 		
 		switch (interaction) {
 		case BLUE:
-			setImage("mechantFinalFinalBleu");
+			this.image = playerSpriteSheet.get("Bleu");
 			setContactDamage(2);
 			speed = 1;
+			pv = 3;
 			hitbox = new Ellipse(posX, posY, size/2, size/2);
 			break;
 		case GREEN:
-			setImage("mechantFinalFinal");
+			this.image = playerSpriteSheet.get("Vert");
 			setContactDamage(2);
 			speed = (float)1.2;
+			pv = 3;
 			hitbox = new Ellipse(posX, posY, size/2, size/2);
 			break;
 		case RED:
-			setImage("mechantFinalFinalRouge");
+			this.image = playerSpriteSheet.get("Rouge");
 			setContactDamage(2);
 			speed = (float)1.4;
+			pv = 3;
 			hitbox = new Ellipse(posX, posY, size/2, size/2);
 			break;
 		case YELLOW:
-			setImage("mechantFinalFinalJaune");
+			this.image = playerSpriteSheet.get("Jaune");
 			setContactDamage(2);
 			speed = (float)1.6;
+			pv = 3;
 			hitbox = new Ellipse(posX, posY, size/2, size/2);
 			break;
 		case PURPLE:
-			setImage("mechantFinalFinalViolet");
+			this.image = playerSpriteSheet.get("Violet");
 			setContactDamage(2);
 			speed = (float) 1.8;
+			pv = 3;
 			hitbox = new Ellipse(posX, posY, size/2, size/2);
 			break;
 		case BOSS:
-			setImage("gray_1");
+			this.image = playerSpriteSheet.get("Boss");
 			setContactDamage(5);
 			speed = 2;
+			pv = 3;
 			this.headHitbox = new Ellipse(posX + 48, posY + 32, 32, 30);
 			this.bodyHitbox = new Rectangle(posX + 36, posY + 55, 26, 38);
 			this.hitbox = headHitbox.union(bodyHitbox)[0];
@@ -107,7 +123,7 @@ public class Enemy {
 	public void render (GameContainer container, StateBasedGame game, Graphics context) {
 		/* Méthode exécutée environ 60 fois par seconde */
 
-		context.drawImage( getSprite(), posX, posY, posX+size, posY+size, 0, 0, getSprite().getWidth(), getSprite().getHeight() );
+		context.drawImage( image, posX, posY, posX+size, posY+size, 0, 0, image.getWidth(), image.getHeight() );
 		context.setColor(Color.green);
 		context.draw(hitbox);
 	}
@@ -124,6 +140,10 @@ public class Enemy {
 		this.posY = y;		
 	}
 	
+	public Shape getHitbox() {
+		return hitbox;
+	}
+	
 	public void setBehavior(EnemyBehavior b)
 	{
 		this.behavior = b;
@@ -134,6 +154,13 @@ public class Enemy {
 		return behavior;
 	}
 	
+	public void setPv(int newpv) {
+		pv = newpv;
+	}
+	
+	public int getPv() {
+		return pv;
+	}
 	
 	/**
 	 * met la position X à jour
@@ -209,13 +236,8 @@ public class Enemy {
 	 * @throws SlickException
 	 */
 	
-	public void setImage(String img) throws SlickException
-	{
-		this.sprite = AppLoader.loadPicture(World.IMAGES + "/enemies/"+img+".png");
-	}
-	
 	public Image getSprite() {
-		return sprite;
+		return image;
 	}
 	
 	public float[] getPos()

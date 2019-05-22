@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
 import app.AppLoader;
@@ -13,6 +14,8 @@ import games.phoenix.Player;
 import games.phoenix.Projectile;
 import games.phoenix.World;
 import games.phoenix.enemies.Enemy;
+import games.phoenix.enemies.Enemy.EnemyColor;
+import games.phoenix.enemies.EnemyRed;
 
 /**
  * 
@@ -110,7 +113,7 @@ public class Room {
 			projectile.update(container, game, delta);
 		}
 
-		//TODO collisions
+		collisions();
 	}
 
 	public void render (GameContainer container, StateBasedGame game, Graphics context) {
@@ -161,7 +164,12 @@ public class Room {
 			
 			break;
 		case 1:
-			
+			try {
+				enemies.add(new EnemyRed(40,40,player));
+			} catch (SlickException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			break;
 		case 2:
 			
@@ -183,6 +191,19 @@ public class Room {
 			break;
 		default:
 			
+		}
+	}
+	
+	public void collisions() {
+		for (Enemy e: enemies){
+			if(e.getHitbox().intersects(player.getHitbox())) {
+				e.attack(player);
+			}
+			for (Projectile p: projectiles) {
+				if(e.getHitbox().intersects(p.getHitbox())) {
+					e.setPv(e.getPv()-p.getDamage());
+				}
+			}
 		}
 	}
 	

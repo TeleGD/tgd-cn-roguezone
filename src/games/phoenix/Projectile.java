@@ -95,4 +95,12 @@ public class Projectile {
         
         context.draw((Shape)hitbox);
 	}
+
+	public int getDamage() {
+		return damage;
+	}
+
+	public Shape getHitbox() {
+		return hitbox;
+	}
 }
