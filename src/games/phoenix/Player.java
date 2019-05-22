@@ -1,8 +1,6 @@
 package games.phoenix;
 
 import java.io.File;
-import java.util.ArrayList;
-
 import org.newdawn.slick.Image;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.geom.Ellipse;
@@ -29,7 +27,7 @@ public class Player {
 		playerSpritSheet[2] = AppLoader.loadPicture(World.IMAGES + File.separator + "characters" + File.separator + "gray_2.png");
 		playerSpritSheet[3] = AppLoader.loadPicture(World.IMAGES + File.separator + "characters" + File.separator + "gray_3.png");
 	}
-
+	private World world;
 	
 	private int controllerID;
 	private String name;
@@ -67,6 +65,7 @@ public class Player {
 	 * Constructeur à paramètres du joueur
 	 */
 	public Player(World world, int controllerID, String name, int currentLife, int maxLife,int currentShield,int maxShield ,float speed, float speedX, float speedY, int height, int width, int fireRate){
+		this.world = world;
 		this.controllerID = controllerID;
 		this.name = name;
 		this.currentLife = currentLife;
@@ -78,9 +77,12 @@ public class Player {
 		this.width = width;
 		this.posX = (world.getWidth() - this.width)/2;
 		this.posY = (world.getHeight() - this.height)/2;
+		oldPosX = posX;
+		oldPosY = posY;
 		this.headHitbox = new Ellipse(posX + 40, posY + 26, 26, 24);
 		this.bodyHitbox = new Rectangle(posX + 30, posY + 46, 22, 32);
 		this.hitbox = headHitbox.union(bodyHitbox)[0];
+		hitbox.setLocation(posX, posY);
 		this.facing = 1;
 		this.fireRate = fireRate;
 		this.delay = 0;
@@ -98,8 +100,6 @@ public class Player {
 		AppInput input = (AppInput) container.getInput ();
 		
 		move(input, delta);
-		//TODO remove
-		confirmMove(true);
 
 		if(delay > 0){
 			delay--;
@@ -128,7 +128,7 @@ public class Player {
 			
 			if (fired) {
 				frameLock = 15;
-				room.addProjectile(new Projectile(posX, posY, facing));
+				room.addProjectile(new Projectile(posX+height/2, posY+height/4, facing));
 				delay = fireRate;
 			}
 		}
@@ -307,7 +307,7 @@ public class Player {
 	
 	public float[] getPos()
 	{
-		float[] pos = {posX,posY};
+		float[] pos = {posX+width/2,posY+height/2};
 		return pos;
 	}
 
@@ -345,5 +345,37 @@ public class Player {
 
 	public int getFireRate() {
 		return fireRate;
+	}
+
+	public void setRoom(Room room) {
+		this.room = room;
+	}
+	
+	public void changeRoom(int line, int column, int direction) {
+		world.setActiveRoom(line,column);
+		switch (direction) {
+		case 0:
+			this.posX = (world.getWidth() - this.width)/2;
+			this.posY = world.getHeight() - 150;
+			break;
+		case 1:
+			this.posX = (world.getWidth() - this.width)/2;
+			this.posY = 150;
+			break;
+		case 2:
+			this.posX = world.getWidth() - 150;
+			this.posY = (world.getHeight() - this.height)/2;
+			break;
+		case 3:
+			this.posX = 150;
+			this.posY = (world.getHeight() - this.height)/2;
+			break;
+		default:
+			this.posX = (world.getWidth() - this.width)/2;
+			this.posY = (world.getHeight() - this.height)/2;
+		}
+		oldPosX = posX;
+		oldPosY = posY;
+		hitbox.setLocation(posX, posY);
 	}
 }

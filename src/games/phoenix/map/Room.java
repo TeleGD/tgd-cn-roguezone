@@ -76,7 +76,7 @@ public class Room {
 	 * 	- 2 gauche  
 	 * 	- 3 bas  
 	 */
-	public Room(World world, int line, int column, int difficulty) {
+	public Room(World world, int difficulty, int line, int column) {
 		this.difficulty = difficulty;
 		this.player = world.getPlayer();
 		
@@ -90,6 +90,9 @@ public class Room {
 		
 		this.doorWidth = 148 * worldWidth / 1920;
 		
+		this.line = line;
+		this.column = column;
+		
 		init();
 	}
 	
@@ -98,21 +101,25 @@ public class Room {
 	}
 	
 	public void update (GameContainer container, StateBasedGame game, int delta) {
+		player.update(container, game, delta);
+		checkPlayerPos();
 		for (Enemy enemy : enemies) {
 			enemy.update(container, game, delta);
 		}
 		for (Projectile projectile : projectiles) {
 			projectile.update(container, game, delta);
 		}
-		checkPlayerPos();
+
+		//TODO collisions
 	}
 
 	public void render (GameContainer container, StateBasedGame game, Graphics context) {
 		context.drawImage(fond, 0, 0, worldWidth, worldHeight, 0, 0, fond.getWidth(), fond.getHeight());
-		
+		context.drawString(difficulty+"", worldWidth/2, worldHeight/2);
 		for (Enemy enemy : enemies) {
 			enemy.render(container, game, context);
 		}
+		player.render(container, game, context);
 		for (Projectile projectile : projectiles) {
 			projectile.render(container, game, context);
 		}
@@ -123,16 +130,16 @@ public class Room {
 		boolean inside = true;
 		
 		if (doors.contains(0) && pos[1] <= yMargin && pos[0]>worldWidth/2-doorWidth/2 && pos[0]<worldWidth/2+doorWidth/2 ) {
-			//TODO
+			player.changeRoom(line-1,column,0);
 		}
 		if (doors.contains(1) && pos[1] >= worldHeight-yMargin && pos[0]>worldWidth/2-doorWidth/2 && pos[0]<worldWidth/2+doorWidth/2 ) {
-			//TODO
+			player.changeRoom(line+1,column,1);
 		}
 		if (doors.contains(2) && pos[0] <= xMargin && pos[1]>worldHeight/2-doorWidth/2 && pos[1]<worldHeight/2+doorWidth/2 ) {
-			//TODO
+			player.changeRoom(line,column-1,2);
 		}
 		if (doors.contains(2) && pos[0] >= worldWidth-xMargin && pos[1]>worldHeight/2-doorWidth/2 && pos[1]<worldHeight/2+doorWidth/2 ) {
-			//TODO
+			player.changeRoom(line,column+1,3);
 		}
 		
 		if (pos[0] < xMargin || pos[0] > worldWidth-xMargin || pos[1] < yMargin || pos[1] > worldHeight-yMargin) {
@@ -151,6 +158,30 @@ public class Room {
 	private void init() {
 		switch (difficulty) {
 		case 0:
+			
+			break;
+		case 1:
+			
+			break;
+		case 2:
+			
+			break;
+		case 3:
+			
+			break;
+		case 4:
+			
+			break;
+		case -1:
+			
+			break;
+		case -2:
+			
+			break;
+		case -3:
+			
+			break;
+		default:
 			
 		}
 	}

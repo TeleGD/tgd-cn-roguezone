@@ -6,7 +6,6 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.state.StateBasedGame;
 
 import app.AppGame;
-import app.AppInput;
 import app.AppWorld;
 import games.phoenix.enemies.EnemyBlue;
 import games.phoenix.enemies.EnemyBoss;
@@ -15,6 +14,7 @@ import games.phoenix.enemies.EnemyPurple;
 import games.phoenix.enemies.EnemyRed;
 import games.phoenix.enemies.EnemyYellow;
 import games.phoenix.map.Map;
+import games.phoenix.map.Room;
 
 public class World extends AppWorld {
 
@@ -22,16 +22,21 @@ public class World extends AppWorld {
 	
 	private Map map;
 	private Player player;
+	private Room activeRoom;
+	
+	private String log;
+	private int height;
+	private int width;
+	private int size;
+
 	private EnemyBlue enemyb;
 	private EnemyYellow enemyj;
 	private EnemyRed enemyr;
 	private EnemyGreen enemyg;
 	private EnemyPurple enemyv;
 	private EnemyBoss enemyboss;
-	private String log;
-	private int height;
-	private int width;
-
+	
+	
 	public World (int ID) {
 		super (ID);
 	}
@@ -49,21 +54,13 @@ public class World extends AppWorld {
 	public void play (GameContainer container, StateBasedGame game) {
 		/* Méthode exécutée une unique fois au début du jeu */
 		AppGame appGame = (AppGame) game;
+		
+		this.size = 10;
+		
 		this.player = new Player(appGame.appPlayers.get(0), this);
 		map = new Map(10, this);
-		try {
-			this.enemyb = new EnemyBlue(0,0,player);
-			this.enemyr = new EnemyRed(0,0,player);
-			this.enemyj = new EnemyYellow(0,0,player);
-			this.enemyg = new EnemyGreen(0,0,player);
-			this.enemyv = new EnemyPurple(0,0,player);
-			this.enemyboss = new EnemyBoss(0,0,player);
-			
-		}
-		catch (Throwable t)
-		{
-			
-		}
+		map = new Map(size, this);
+		activeRoom = map.getRoom(size/2,size/2);
 		this.log = "";
 		System.out.println ("PLAY");
 	}
@@ -90,7 +87,7 @@ public class World extends AppWorld {
 	public void poll (GameContainer container, StateBasedGame game, Input user) {
 		/* Méthode exécutée environ 60 fois par seconde */
 		super.poll (container, game, user);
-		AppInput input = (AppInput) user;
+		//AppInput input = (AppInput) user;
 		
 		/*this.log = "";
 		
@@ -119,14 +116,15 @@ public class World extends AppWorld {
 	public void update (GameContainer container, StateBasedGame game, int delta) {
 		/* Méthode exécutée environ 60 fois par seconde */
 		super.update (container, game, delta);
+		activeRoom.update(container, game, delta);
 		
-		player.update(container, game, delta);
+		/*player.update(container, game, delta);
 		enemyb.update(container, game, delta);
 		enemyr.update(container, game, delta);
 		enemyj.update(container, game, delta);
 		enemyg.update(container, game, delta);
 		enemyv.update(container, game, delta);
-		enemyboss.update(container, game, delta);
+		enemyboss.update(container, game, delta);*/
 	}
 
 	@Override
@@ -136,14 +134,15 @@ public class World extends AppWorld {
 		if (this.log.length () != 0) {
 			System.out.print (this.log);
 		}
+		activeRoom.render(container, game, context);
 
-		player.render(container, game, context);
+		/*player.render(container, game, context);
 		enemyb.render(container, game, context);
 		enemyr.render(container, game, context);
 		enemyj.render(container, game, context);
 		enemyg.render(container, game, context);
 		enemyv.render(container, game, context);
-		enemyboss.render(container, game, context);
+		enemyboss.render(container, game, context);*/
 	}
 
 	/**
@@ -162,6 +161,11 @@ public class World extends AppWorld {
 	}
 
 	public Player getPlayer() {
-		return player;
+		return this.player;
+	}
+
+	public void setActiveRoom(int line, int column) {
+		this.activeRoom = map.getRoom(line, column);
+		player.setRoom(activeRoom);
 	}
 }
