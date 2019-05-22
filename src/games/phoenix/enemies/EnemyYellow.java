@@ -11,18 +11,10 @@ import games.phoenix.enemies.Enemy.EnemyColor;
 
 public class EnemyYellow extends Enemy{
 	
-	public EnemyYellow(int x, int y) throws SlickException
+	public EnemyYellow(int x, int y, Player player) throws SlickException
 	{
 		super(0, "yellow", x, y,EnemyColor.YELLOW);
-	}
-	
-	/*
-	 * Fonction qui doit disparaitre à terme: c'est pour faire des test à l'arrache sur le
-	 * bon fonctionnement de l'ennemis
-	 */
-	public void init(Enemy enemy, Player player) 
-	{
-		setBehavior(new EnemyBehavior(enemy, player));
+		setBehavior(new EnemyBehavior(this, player));
 		getBehavior().setPlayerInfluence(EnemyBehavior.interacting.COMING);
 	}
 }

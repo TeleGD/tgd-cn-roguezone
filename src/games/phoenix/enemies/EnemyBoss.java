@@ -22,19 +22,10 @@ public class EnemyBoss extends Enemy{
 
 
 	
-	public EnemyBoss(int x, int y) throws SlickException
+	public EnemyBoss(int x, int y, Player player) throws SlickException
 	{
 		super(0, "boss", x, y, EnemyColor.BOSS);
-		
-	}
-	
-	/*
-	 * Fonction qui doit disparaitre à terme: c'est pour faire des test à l'arrache sur le
-	 * bon fonctionnement de l'ennemis
-	 */
-	public void init(Enemy enemy, Player player) 
-	{
-		setBehavior(new EnemyBehavior(enemy, player));
+		setBehavior(new EnemyBehavior(this, player));
 		getBehavior().setPlayerInfluence(EnemyBehavior.interacting.COMING);
 	}
 }

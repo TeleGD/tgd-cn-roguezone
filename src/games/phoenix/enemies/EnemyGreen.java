@@ -11,9 +11,11 @@ import games.phoenix.enemies.Enemy.EnemyColor;
 
 public class EnemyGreen extends Enemy{
 	
-	public EnemyGreen(int x, int y) throws SlickException
+	public EnemyGreen(int x, int y, Player player) throws SlickException
 	{
 		super(0, "green", x, y, EnemyColor.GREEN);
+		setBehavior(new EnemyBehavior(this, player));
+		getBehavior().setPlayerInfluence(EnemyBehavior.interacting.COMING);
 	}
 	
 	/*
@@ -22,7 +24,6 @@ public class EnemyGreen extends Enemy{
 	 */
 	public void init(Enemy enemy, Player player) 
 	{
-		setBehavior(new EnemyBehavior(enemy, player));
-		getBehavior().setPlayerInfluence(EnemyBehavior.interacting.COMING);
+		
 	}
 }

@@ -44,7 +44,6 @@ public class EnemyBehavior {
 	public interacting getPlayerInfluence()
 	{	
 		return interaction;
-		
 	}
 	
 	/**
@@ -65,9 +64,9 @@ public class EnemyBehavior {
 	{
 		float[] vect = {0,0};
 		float playerX = player.getPos()[0];
-		float enemyX = enemy.getPos()[0];
+		float enemyX = enemy.getPos()[0]+ enemy.getSprite().getWidth()/2;
 		
-		float enemyY = enemy.getPos()[1];
+		float enemyY = enemy.getPos()[1]+ enemy.getSprite().getHeight()/2;
 		float playerY = player.getPos()[1];
 		
 		float deltaX = enemyX - playerX;
