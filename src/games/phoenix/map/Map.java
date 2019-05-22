@@ -86,5 +86,9 @@ public class Map {
 		    }
 		}
 	}
+
+	public Room getRoom(int line, int column) {
+		return map[line][column];
+	}
 	
 }

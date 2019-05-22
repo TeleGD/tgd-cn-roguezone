@@ -13,7 +13,6 @@ import org.newdawn.slick.state.StateBasedGame;
 import app.AppLoader;
 import games.phoenix.Player;
 import games.phoenix.World;
-import games.phoenix.enemies.EnemyBehavior.interacting;
 
 public class Enemy {
 	

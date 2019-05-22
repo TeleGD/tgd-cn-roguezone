@@ -1,8 +1,6 @@
 package games.phoenix;
 
 import java.io.File;
-import java.util.ArrayList;
-
 import org.newdawn.slick.Image;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.geom.Ellipse;
@@ -29,7 +27,7 @@ public class Player {
 		playerSpritSheet[2] = AppLoader.loadPicture(World.IMAGES + File.separator + "characters" + File.separator + "gray_2.png");
 		playerSpritSheet[3] = AppLoader.loadPicture(World.IMAGES + File.separator + "characters" + File.separator + "gray_3.png");
 	}
-
+	private World world;
 	
 	private int controllerID;
 	private String name;
@@ -67,6 +65,7 @@ public class Player {
 	 * Constructeur à paramètres du joueur
 	 */
 	public Player(World world, int controllerID, String name, int currentLife, int maxLife,int currentShield,int maxShield ,float speed, float speedX, float speedY, int height, int width, int fireRate){
+		this.world = world;
 		this.controllerID = controllerID;
 		this.name = name;
 		this.currentLife = currentLife;
@@ -98,8 +97,6 @@ public class Player {
 		AppInput input = (AppInput) container.getInput ();
 		
 		move(input, delta);
-		//TODO remove
-		confirmMove(true);
 
 		if(delay > 0){
 			delay--;
@@ -345,5 +342,35 @@ public class Player {
 
 	public int getFireRate() {
 		return fireRate;
+	}
+
+	public void setRoom(Room room) {
+		this.room = room;
+	}
+	
+	public void changeRoom(int line, int column, int direction) {
+		world.setActiveRoom(line,column);
+		switch (direction) {
+		case 0:
+			this.posX = (world.getWidth() - this.width)/2;
+			this.posY = 200;
+			break;
+		case 1:
+			this.posX = (world.getWidth() - this.width)/2;
+			this.posY = world.getHeight() - 200;
+			break;
+		case 2:
+			this.posX = 200;
+			this.posY = (world.getHeight() - this.height)/2;
+			break;
+		case 3:
+			this.posX = world.getWidth() - 200;
+			this.posY = (world.getHeight() - this.height)/2;
+			break;
+		default:
+			this.posX = (world.getWidth() - this.width)/2;
+			this.posY = (world.getHeight() - this.height)/2;
+		}
+		hitbox.setLocation(posX, posY);
 	}
 }
