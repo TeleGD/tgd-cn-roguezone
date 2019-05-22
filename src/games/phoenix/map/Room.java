@@ -76,7 +76,7 @@ public class Room {
 	 * 	- 2 gauche  
 	 * 	- 3 bas  
 	 */
-	public Room(World world, int line, int column, int difficulty) {
+	public Room(World world, int difficulty, int line, int column) {
 		this.difficulty = difficulty;
 		this.player = world.getPlayer();
 		
@@ -89,6 +89,9 @@ public class Room {
 		this.yMargin = 104 * worldHeight / 1080;
 		
 		this.doorWidth = 148 * worldWidth / 1920;
+		
+		this.line = line;
+		this.column = column;
 		
 		init();
 	}
@@ -112,7 +115,7 @@ public class Room {
 
 	public void render (GameContainer container, StateBasedGame game, Graphics context) {
 		context.drawImage(fond, 0, 0, worldWidth, worldHeight, 0, 0, fond.getWidth(), fond.getHeight());
-		
+		context.drawString(difficulty+"", worldWidth/2, worldHeight/2);
 		for (Enemy enemy : enemies) {
 			enemy.render(container, game, context);
 		}

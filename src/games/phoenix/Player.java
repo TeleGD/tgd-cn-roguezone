@@ -77,9 +77,12 @@ public class Player {
 		this.width = width;
 		this.posX = (world.getWidth() - this.width)/2;
 		this.posY = (world.getHeight() - this.height)/2;
+		oldPosX = posX;
+		oldPosY = posY;
 		this.headHitbox = new Ellipse(posX + 40, posY + 26, 26, 24);
 		this.bodyHitbox = new Rectangle(posX + 30, posY + 46, 22, 32);
 		this.hitbox = headHitbox.union(bodyHitbox)[0];
+		hitbox.setLocation(posX, posY);
 		this.facing = 1;
 		this.fireRate = fireRate;
 		this.delay = 0;
@@ -125,7 +128,7 @@ public class Player {
 			
 			if (fired) {
 				frameLock = 15;
-				room.addProjectile(new Projectile(posX, posY, facing));
+				room.addProjectile(new Projectile(posX+height/2, posY+height/4, facing));
 				delay = fireRate;
 			}
 		}
@@ -304,7 +307,7 @@ public class Player {
 	
 	public float[] getPos()
 	{
-		float[] pos = {posX,posY};
+		float[] pos = {posX+width/2,posY+height/2};
 		return pos;
 	}
 
@@ -353,24 +356,26 @@ public class Player {
 		switch (direction) {
 		case 0:
 			this.posX = (world.getWidth() - this.width)/2;
-			this.posY = 200;
+			this.posY = world.getHeight() - 150;
 			break;
 		case 1:
 			this.posX = (world.getWidth() - this.width)/2;
-			this.posY = world.getHeight() - 200;
+			this.posY = 150;
 			break;
 		case 2:
-			this.posX = 200;
+			this.posX = world.getWidth() - 150;
 			this.posY = (world.getHeight() - this.height)/2;
 			break;
 		case 3:
-			this.posX = world.getWidth() - 200;
+			this.posX = 150;
 			this.posY = (world.getHeight() - this.height)/2;
 			break;
 		default:
 			this.posX = (world.getWidth() - this.width)/2;
 			this.posY = (world.getHeight() - this.height)/2;
 		}
+		oldPosX = posX;
+		oldPosY = posY;
 		hitbox.setLocation(posX, posY);
 	}
 }
