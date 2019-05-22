@@ -360,14 +360,14 @@ public class Player {
 			break;
 		case 1:
 			this.posX = (world.getWidth() - this.width)/2;
-			this.posY = 150;
+			this.posY = 70;
 			break;
 		case 2:
 			this.posX = world.getWidth() - 150;
 			this.posY = (world.getHeight() - this.height)/2;
 			break;
 		case 3:
-			this.posX = 150;
+			this.posX = 70;
 			this.posY = (world.getHeight() - this.height)/2;
 			break;
 		default:
