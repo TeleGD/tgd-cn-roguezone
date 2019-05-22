@@ -30,7 +30,7 @@ public class Player {
 	private World world;
 	
 	private int controllerID;
-	private String name;
+	
 	private int currentLife;	
 	private int maxLife;
 	private int currentShield;
@@ -38,19 +38,26 @@ public class Player {
 	private float speed;
 	private float speedX;
 	private float speedY;
-	private int height;
-	private int width;
 	private float oldPosX;
 	private float oldPosY;
 	private float posX;
 	private float posY;
+	private int fireRate;
+	private int delay;
+	
+	private int damage;
+	private float shotSpeed;
+	private int range;
+	private int shotRadius;
+	
+	private int height;
+	private int width;
 	private Ellipse headHitbox;
 	private Rectangle bodyHitbox;
 	private Shape hitbox;
 	private int facing;
 	private int frameLock = 0;
-	private int fireRate;
-	private int delay;
+	
 	private Room room;
 
 	/**
@@ -58,35 +65,44 @@ public class Player {
 	 * @param appPlayer
 	 */
 	public Player(AppPlayer appPlayer, World world) {
-		this(world, appPlayer.getControllerID(), appPlayer.getName(), 100, 100, 0,100,0.3f, 0f, 0f, 80, 80, 50);
+		
+		// Perso 1 : gray
+		this(world, appPlayer.getControllerID(), 100, 0,100,0.3f, 50, 5, 3, 1f, 50);
 	}
 	
 	/**
 	 * Constructeur à paramètres du joueur
 	 */
-	public Player(World world, int controllerID, String name, int currentLife, int maxLife,int currentShield,int maxShield ,float speed, float speedX, float speedY, int height, int width, int fireRate){
+	public Player(World world, int controllerID, int maxLife,int currentShield,int maxShield ,float speed, int fireRate,
+					int damage, int shotRadius, float shotSpeed, int range){
 		this.world = world;
 		this.controllerID = controllerID;
-		this.name = name;
-		this.currentLife = currentLife;
+		this.currentLife = maxLife;
 		this.maxLife = maxLife;
-		this.currentLife = currentLife;
+		this.currentLife = currentShield;
 		this.maxShield = maxShield;
 		this.speed = speed;
-		this.height = height;
-		this.width = width;
+		this.height = 80;
+		this.width = 80;
+		
 		this.posX = (world.getWidth() - this.width)/2;
 		this.posY = (world.getHeight() - this.height)/2;
 		oldPosX = posX;
 		oldPosY = posY;
+		
 		this.headHitbox = new Ellipse(posX + 40, posY + 26, 26, 24);
 		this.bodyHitbox = new Rectangle(posX + 30, posY + 46, 22, 32);
 		this.hitbox = headHitbox.union(bodyHitbox)[0];
 		hitbox.setLocation(posX, posY);
 		this.facing = 1;
+		
 		this.fireRate = fireRate;
 		this.delay = 0;
-		this.room = new Room(world, 2,5,5);
+		
+		this.damage = damage;
+		this.shotRadius = shotRadius;
+		this.shotSpeed = shotSpeed;
+		this.range = range;
 	}
 
 	/**
@@ -128,7 +144,7 @@ public class Player {
 			
 			if (fired) {
 				frameLock = 15;
-				room.addProjectile(new Projectile(posX+height/2, posY+height/4, facing));
+				room.addProjectile(new Projectile(posX+width/2, posY+height/4, shotSpeed, facing, damage, range, shotRadius));
 				delay = fireRate;
 			}
 		}
@@ -182,14 +198,6 @@ public class Player {
 	 */
 	public int getControllerID () {
 		return this.controllerID;
-	}
-
-	/**
-	 * Accesseur du nom du joueur
-	 * @return
-	 */
-	public String getName () {
-		return this.name;
 	}
 	
 	/**

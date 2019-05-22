@@ -1,12 +1,10 @@
 package games.phoenix.enemies;
 
-import org.newdawn.slick.SlickException;
-
 import games.phoenix.Player;
 
 public class EnemyBlue extends Enemy{
 	
-	public EnemyBlue(int x, int y, Player player) throws SlickException
+	public EnemyBlue(int x, int y, Player player)
 	{
 		super(0, "blue", x, y, EnemyColor.BLUE);
 		setBehavior(new EnemyBehavior(this, player));

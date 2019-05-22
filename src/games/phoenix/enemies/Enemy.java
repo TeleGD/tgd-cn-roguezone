@@ -6,7 +6,6 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Ellipse;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
@@ -56,7 +55,7 @@ public class Enemy {
 	 * @throws SlickException :  si l'image n'a pas été trouvée ou pas bien affectée
 	 */
 	
-	public Enemy (int id, String name, int x, int y, EnemyColor i) throws SlickException {
+	public Enemy (int id, String name, int x, int y, EnemyColor i) {
 
 		this.name = name;
 		this.id = id;
@@ -249,6 +248,10 @@ public class Enemy {
 	public float getSpeed()
 	{
 		return speed;
+	}
+
+	public boolean isDead() {
+		return pv<=0;
 	}
 	
 }

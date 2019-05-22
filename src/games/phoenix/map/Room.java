@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
 import app.AppLoader;
@@ -14,7 +13,6 @@ import games.phoenix.Player;
 import games.phoenix.Projectile;
 import games.phoenix.World;
 import games.phoenix.enemies.Enemy;
-import games.phoenix.enemies.Enemy.EnemyColor;
 import games.phoenix.enemies.EnemyRed;
 
 /**
@@ -106,14 +104,21 @@ public class Room {
 	public void update (GameContainer container, StateBasedGame game, int delta) {
 		player.update(container, game, delta);
 		checkPlayerPos();
-		for (Enemy enemy : enemies) {
-			enemy.update(container, game, delta);
-		}
-		for (Projectile projectile : projectiles) {
-			projectile.update(container, game, delta);
-		}
-
 		collisions();
+		for (int i=enemies.size()-1; i>=0 ; i--) {
+			if (!enemies.get(i).isDead()) enemies.get(i).update(container, game, delta);
+			if (enemies.get(i).isDead()) enemies.remove(i);
+		}
+		for (int i=projectiles.size()-1; i>=0 ; i--) {
+			if (!projectiles.get(i).isDestroyed()) projectiles.get(i).update(container, game, delta);
+			if (projectiles.get(i).getPos()[0]-projectiles.get(i).getRadius()<xMargin
+				|| projectiles.get(i).getPos()[0]+projectiles.get(i).getRadius()>worldWidth-xMargin
+				|| projectiles.get(i).getPos()[1]-projectiles.get(i).getRadius()<yMargin
+				|| projectiles.get(i).getPos()[1]+projectiles.get(i).getRadius()>worldHeight-yMargin ) {
+				projectiles.get(i).destroy();
+			}
+			if (projectiles.get(i).isDestroyed()) projectiles.remove(i);
+		}
 	}
 
 	public void render (GameContainer container, StateBasedGame game, Graphics context) {
@@ -134,15 +139,19 @@ public class Room {
 		
 		if (doors.contains(0) && pos[1] <= yMargin && pos[0]>worldWidth/2-doorWidth/2 && pos[0]<worldWidth/2+doorWidth/2 ) {
 			player.changeRoom(line-1,column,0);
+			projectiles = new ArrayList<>();
 		}
 		if (doors.contains(1) && pos[1] >= worldHeight-yMargin && pos[0]>worldWidth/2-doorWidth/2 && pos[0]<worldWidth/2+doorWidth/2 ) {
 			player.changeRoom(line+1,column,1);
+			projectiles = new ArrayList<>();
 		}
 		if (doors.contains(2) && pos[0] <= xMargin && pos[1]>worldHeight/2-doorWidth/2 && pos[1]<worldHeight/2+doorWidth/2 ) {
 			player.changeRoom(line,column-1,2);
+			projectiles = new ArrayList<>();
 		}
 		if (doors.contains(3) && pos[0] >= worldWidth-xMargin && pos[1]>worldHeight/2-doorWidth/2 && pos[1]<worldHeight/2+doorWidth/2 ) {
 			player.changeRoom(line,column+1,3);
+			projectiles = new ArrayList<>();
 		}
 		
 		if (pos[0] < xMargin || pos[0] > worldWidth-xMargin || pos[1] < yMargin || pos[1] > worldHeight-yMargin) {
@@ -164,12 +173,7 @@ public class Room {
 			
 			break;
 		case 1:
-			try {
-				enemies.add(new EnemyRed(40,40,player));
-			} catch (SlickException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			enemies.add(new EnemyRed(40,40,player));
 			break;
 		case 2:
 			
@@ -202,6 +206,7 @@ public class Room {
 			for (Projectile p: projectiles) {
 				if(e.getHitbox().intersects(p.getHitbox())) {
 					e.setPv(e.getPv()-p.getDamage());
+					p.destroy();
 				}
 			}
 		}
