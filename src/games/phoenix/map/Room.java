@@ -46,14 +46,14 @@ public class Room {
 	
 	private Image fond = AppLoader.loadPicture(World.IMAGES+File.separator+"rooms"+File.separator+"room_15.png");
 	
-	private int worldWidth;
-	private int worldHeight;
+	public static int worldWidth;
+	public static int worldHeight;
 	
 	private int line;
 	private int column;
 	
-	private int xMargin;
-	private int yMargin;
+	public static int xMargin;
+	public static int yMargin;
 	private int doorWidth;
 	
 	private int difficulty;

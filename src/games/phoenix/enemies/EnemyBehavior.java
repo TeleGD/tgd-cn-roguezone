@@ -1,9 +1,10 @@
 package games.phoenix.enemies;
 
 import games.phoenix.Player;
+import games.phoenix.map.Room;
 
 public class EnemyBehavior {
-	public static enum interacting {FLEEING, COMING, STATIC, STRAIGHT};
+	public static enum interacting {FLEEING, COMING, STATIC, STRAIGHT, BOUNCE};
 	/* FLEEING : fuit le joueur
 	 * COMING : va vers le joueur
 	 * STATIC : ne bouge pas
@@ -26,6 +27,22 @@ public class EnemyBehavior {
 	
 	private interacting interaction = interacting.STATIC;
 	
+	private float playerX;
+	private float enemyX;
+	
+	private float enemyY;
+	private float playerY;
+	
+	private float deltaX;
+	private float deltaY;
+	
+	
+	
+	private double norm;
+	
+	private float directionX;
+	private float directionY;
+	
 	
 	/**
 	 * constructeur du comportement de l'ennemis
@@ -35,6 +52,15 @@ public class EnemyBehavior {
 	{
 		enemy = e;
 		player = p;
+		playerX = player.getPos()[0];
+		enemyX = enemy.getPos()[0]+ enemy.getSprite().getWidth()/2;
+		enemyY = enemy.getPos()[1]+ enemy.getSprite().getHeight()/2;
+		playerY = player.getPos()[1];
+		deltaX = enemyX - playerX;
+		deltaY = enemyY - playerY;
+		norm  = Math.sqrt(Math.pow((double) deltaX, (double) 2) + Math.pow((double) deltaY, (double) 2));
+		directionX = (float) (((double) deltaX )/ norm) * enemy.getSpeed();
+		directionY = (float) ((((double) deltaY )/ norm) * enemy.getSpeed());
 	}
 	
 	/**
@@ -72,6 +98,8 @@ public class EnemyBehavior {
 		float deltaX = enemyX - playerX;
 		float deltaY = enemyY - playerY;
 		
+		
+		
 		double norm  = Math.sqrt(Math.pow((double) deltaX, (double) 2) + Math.pow((double) deltaY, (double) 2));
 		
 		switch(interaction)
@@ -91,13 +119,25 @@ public class EnemyBehavior {
 				vect[1]= -(float) ((((double) deltaY )/ norm) * enemy.getSpeed());
 			}
 			break;
-			
-		case STATIC:
-
+		case BOUNCE:
+			if (enemy.getPos()[0]-enemy.getRadius()< Room.xMargin
+					|| enemy.getPos()[0]+enemy.getRadius()>Room.worldWidth-Room.xMargin
+					|| enemy.getPos()[1]-enemy.getRadius()<Room.yMargin
+					|| enemy.getPos()[1]+enemy.getRadius()>Room.worldHeight-Room.yMargin ) {
+				/*	l'ennemi touche un mur */
+				directionX = (float) (((double) deltaX )/ norm) * enemy.getSpeed();
+				directionY  = (float) ((((double) deltaY )/ norm) * enemy.getSpeed());
+			}
+			vect[0]= -directionX;
+			vect[1]= -directionY;
 			break;
 		case STRAIGHT:
 			vect[0] = (float) (normalizedVector[0] * enemy.getSpeed());
 			vect[1] = -(float) (normalizedVector[1] * enemy.getSpeed());
+			break;
+		case STATIC:
+
+			break;
 		}
 		return vect;
 	}

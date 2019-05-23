@@ -15,25 +15,22 @@ import app.AppLoader;
 import games.phoenix.Player;
 import games.phoenix.World;
 
-public class Enemy {
+public abstract class Enemy {
 	
-	public static enum EnemyColor {RED, BLUE, YELLOW, GREEN, PURPLE, BOSS};
-	
-	private final String name;
-	private final int id;
+	protected final String name;
+	protected final int id;
 	
 	protected float posX;
 	protected float posY;
 	
-	private int size;
-	private int pv;
-	private int damage;
-	private float speed = 2;
-	private Ellipse headHitbox;
-	private Rectangle bodyHitbox;
-	private Shape hitbox;
-	private EnemyColor interaction = EnemyColor.GREEN;
-	private Image image;
+	protected int size;
+	protected int pv;
+	protected int damage;
+	protected float speed = 2;
+	protected Ellipse headHitbox;
+	protected Rectangle bodyHitbox;
+	protected Shape hitbox;
+	protected Image image;
 	protected static HashMap<String, Image> playerSpriteSheet = new HashMap<String, Image>();
 
 	static {
@@ -45,7 +42,7 @@ public class Enemy {
 		playerSpriteSheet.put("Boss", AppLoader.loadPicture(World.IMAGES + "/enemies/gray_1.png"));
 	}
 
-	private EnemyBehavior behavior;
+	protected EnemyBehavior behavior;
 	
 	/**
 	 * 
@@ -55,59 +52,11 @@ public class Enemy {
 	 * @throws SlickException :  si l'image n'a pas été trouvée ou pas bien affectée
 	 */
 	
-	public Enemy (int id, String name, int x, int y, EnemyColor i) {
+	public Enemy (int id, String name, int x, int y) {
 
 		this.name = name;
 		this.id = id;
-		interaction = i;
 		this.size = 100;
-		
-		switch (interaction) {
-		case BLUE:
-			this.image = playerSpriteSheet.get("Bleu");
-			setContactDamage(2);
-			speed = 1;
-			pv = 3;
-			hitbox = new Ellipse(posX, posY, size/2, size/2);
-			break;
-		case GREEN:
-			this.image = playerSpriteSheet.get("Vert");
-			setContactDamage(2);
-			speed = (float)1.2;
-			pv = 3;
-			hitbox = new Ellipse(posX, posY, size/2, size/2);
-			break;
-		case YELLOW:
-			this.image = playerSpriteSheet.get("Jaune");
-			setContactDamage(2);
-			speed = (float)1.4;
-			pv = 3;
-			hitbox = new Ellipse(posX, posY, size/2, size/2);
-			break;
-		case RED:
-			this.image = playerSpriteSheet.get("Rouge");
-			setContactDamage(2);
-			speed = (float)1.6;
-			pv = 3;
-			hitbox = new Ellipse(posX, posY, size/2, size/2);
-			break;
-		case PURPLE:
-			this.image = playerSpriteSheet.get("Violet");
-			setContactDamage(2);
-			speed = (float) 1.8;
-			pv = 3;
-			hitbox = new Ellipse(posX, posY, size/2, size/2);
-			break;
-		case BOSS:
-			this.image = playerSpriteSheet.get("Boss");
-			setContactDamage(5);
-			speed = 2;
-			pv = 3;
-			this.headHitbox = new Ellipse(posX + 48, posY + 32, 32, 30);
-			this.bodyHitbox = new Rectangle(posX + 36, posY + 55, 26, 38);
-			this.hitbox = headHitbox.union(bodyHitbox)[0];
-			break;
-		}
 		this.setPosition(x,y);
 	}
 	
@@ -141,6 +90,10 @@ public class Enemy {
 	
 	public Shape getHitbox() {
 		return hitbox;
+	}
+	
+	public int getRadius() {
+		return size/2;
 	}
 	
 	public void setBehavior(EnemyBehavior b)
