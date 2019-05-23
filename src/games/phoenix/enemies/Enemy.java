@@ -16,7 +16,7 @@ import app.AppLoader;
 import games.phoenix.Player;
 import games.phoenix.World;
 
-public class Enemy {
+public abstract class Enemy {
 	
 	public static enum EnemyColor {RED, BLUE, YELLOW, GREEN, PURPLE, BOSS};
 	
