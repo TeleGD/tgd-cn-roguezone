@@ -22,7 +22,7 @@ public abstract class Enemy {
 	
 	protected float posX;
 	protected float posY;
-	
+	protected int radius;
 	protected int size;
 	protected int pv;
 	protected int damage;
@@ -71,7 +71,7 @@ public abstract class Enemy {
 	public void render (GameContainer container, StateBasedGame game, Graphics context) {
 		/* Méthode exécutée environ 60 fois par seconde */
 
-		context.drawImage( image, posX, posY, posX+size, posY+size, 0, 0, image.getWidth(), image.getHeight() );
+		context.drawImage( image, posX-size/2, posY-size/2, posX+size/2, posY+size/2, 0, 0, image.getWidth(), image.getHeight() );
 		context.setColor(Color.green);
 		context.draw(hitbox);
 	}
@@ -93,7 +93,7 @@ public abstract class Enemy {
 	}
 	
 	public int getRadius() {
-		return size/2;
+		return radius;
 	}
 	
 	public void setBehavior(EnemyBehavior b)
@@ -133,7 +133,8 @@ public abstract class Enemy {
 		posX += vx;
 		posY += vy;
 		
-		hitbox.setLocation(posX, posY);
+		hitbox.setCenterX(posX);
+		hitbox.setCenterY(posY);
 	}
 	
 	/**

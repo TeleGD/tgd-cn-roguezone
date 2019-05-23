@@ -15,6 +15,7 @@ public class EnemyBoss extends Enemy{
 		setContactDamage(5);
 		speed = 2;
 		pv = 3;
+		radius = 31;
 		this.headHitbox = new Ellipse(posX + 48, posY + 32, 32, 30);
 		this.bodyHitbox = new Rectangle(posX + 36, posY + 55, 26, 38);
 		this.hitbox = headHitbox.union(bodyHitbox)[0];

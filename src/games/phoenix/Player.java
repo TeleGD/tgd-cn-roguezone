@@ -67,7 +67,8 @@ public class Player {
 	public Player(AppPlayer appPlayer, World world) {
 		
 		// Perso 1 : gray
-		this(world, appPlayer.getControllerID(), 100, 0,100,0.3f, 50, 5, 3, 1f, 500);
+		this(world, appPlayer.getControllerID(), 100, 0,100,0.3f, 50, 
+												5, 3, 1f, 500);
 	}
 	
 	/**

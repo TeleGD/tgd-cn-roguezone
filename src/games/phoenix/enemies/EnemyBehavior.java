@@ -53,8 +53,8 @@ public class EnemyBehavior {
 		enemy = e;
 		player = p;
 		playerX = player.getPos()[0];
-		enemyX = enemy.getPos()[0]+ enemy.getSprite().getWidth()/2;
-		enemyY = enemy.getPos()[1]+ enemy.getSprite().getHeight()/2;
+		enemyX = enemy.getPos()[0];
+		enemyY = enemy.getPos()[1];
 		playerY = player.getPos()[1];
 		deltaX = enemyX - playerX;
 		deltaY = enemyY - playerY;
@@ -90,9 +90,9 @@ public class EnemyBehavior {
 	{
 		float[] vect = {0,0};
 		float playerX = player.getPos()[0];
-		float enemyX = enemy.getPos()[0]+ enemy.getSprite().getWidth()/2;
+		float enemyX = enemy.getPos()[0];
 		
-		float enemyY = enemy.getPos()[1]+ enemy.getSprite().getHeight()/2;
+		float enemyY = enemy.getPos()[1];
 		float playerY = player.getPos()[1];
 		
 		float deltaX = enemyX - playerX;
