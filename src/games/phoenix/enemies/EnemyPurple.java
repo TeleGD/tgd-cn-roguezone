@@ -16,7 +16,7 @@ public class EnemyPurple extends Enemy{
 		radius = 8*size/25;
 		pv = 3;
 		hitbox = new Circle(posX, posY, radius);
-		getBehavior().setPlayerInfluence(EnemyBehavior.interacting.COMING);
 		setBehavior(new EnemyBehavior(this, player));
+		getBehavior().setPlayerInfluence(EnemyBehavior.interacting.COMING);
 	}
 }

@@ -235,11 +235,11 @@ public class Room {
 	
 	public void collisions() {
 		for (Enemy e: enemies){
-			if(e.getHitbox().intersects(player.getHitbox())) {
+			if(e.getHitbox().intersects(player.getHitbox()) || e.getHitbox().contains(player.getHitbox())) {
 				e.attack(player);
 			}
 			for (Projectile p: projectiles) {
-				if(e.getHitbox().intersects(p.getHitbox())) {
+				if(e.getHitbox().intersects(p.getHitbox()) || e.getHitbox().contains(p.getHitbox())) {
 					e.setPv(e.getPv()-p.getDamage());
 					p.destroy();
 				}
