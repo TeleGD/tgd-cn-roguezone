@@ -7,7 +7,7 @@ public class EnemyBehavior {
 	/* FLEEING : fuit le joueur
 	 * COMING : va vers le joueur
 	 * STATIC : ne bouge pas
-	 * STRAIGHT : se dépasse ligne droite
+	 * STRAIGHT : ligne droite
 	 * 
 	 */
 	
