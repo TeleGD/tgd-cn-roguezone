@@ -173,16 +173,17 @@ public class Room {
 			
 			break;
 		case 1:
+			// {1,2} ennemies Bleu / Vert
 			enemies.add(new EnemyRed(40,40,player));
 			break;
 		case 2:
-			
+			// 2 ennemies Vert / Jaune
 			break;
 		case 3:
-			
+			// {2,3} ennemies Jaune / Rouge
 			break;
 		case 4:
-			
+			// 3 ennemies Rouge / Violet
 			break;
 		case -1:
 			

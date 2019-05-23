@@ -77,15 +77,15 @@ public abstract class Enemy {
 			pv = 3;
 			hitbox = new Ellipse(posX, posY, size/2, size/2);
 			break;
-		case RED:
-			this.image = playerSpriteSheet.get("Rouge");
+		case YELLOW:
+			this.image = playerSpriteSheet.get("Jaune");
 			setContactDamage(2);
 			speed = (float)1.4;
 			pv = 3;
 			hitbox = new Ellipse(posX, posY, size/2, size/2);
 			break;
-		case YELLOW:
-			this.image = playerSpriteSheet.get("Jaune");
+		case RED:
+			this.image = playerSpriteSheet.get("Rouge");
 			setContactDamage(2);
 			speed = (float)1.6;
 			pv = 3;
