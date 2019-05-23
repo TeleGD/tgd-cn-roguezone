@@ -73,29 +73,28 @@ public class World extends AppWorld {
 	public void poll (GameContainer container, StateBasedGame game, Input user) {
 		/* Méthode exécutée environ 60 fois par seconde */
 		super.poll (container, game, user);
-		//AppInput input = (AppInput) user;
 		
-		/*this.log = "";
+		this.log = "";
 		
-		String name = player.getName ();
-		int controllerID = player.getControllerID ();
+		//String name = player.getName ();
+		/*int controllerID = player.getControllerID ();
 		for (int i = 0, l = input.getControlCount (controllerID); i < l; i++) {
 			if (input.isControlPressed (1 << i, controllerID)) {
-				this.log += "(" + name + ").isControlPressed: " + i + "\n";
+				this.log += "( player ).isControlPressed: " + i + "\n";
 			}
 		}
 		for (int i = 0, l = input.getButtonCount (controllerID); i < l; i++) {
 			if (input.isButtonPressed (1 << i, controllerID)) {
-				this.log += "(" + name + ").isButtonPressed: " + i + "\n";
+				this.log += "( player ).isButtonPressed: " + i + "\n";
 			}
 		}
 		for (int i = 0, l = input.getAxisCount (controllerID); i < l; i++) {
 			float j = input.getAxisValue (i, controllerID);
 			if (j <= -.5f || j >= .5f) {
-				this.log += "(" + name + ").getAxisValue: " + i + " -> " + j + "\n";
+				this.log += "( player ).getAxisValue: " + i + " -> " + j + "\n";
 			}
-		}
-		*/
+		}*/
+		
 	}
 
 	@Override
