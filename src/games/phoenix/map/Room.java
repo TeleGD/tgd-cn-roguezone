@@ -2,6 +2,7 @@ package games.phoenix.map;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Random;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -12,8 +13,7 @@ import app.AppLoader;
 import games.phoenix.Player;
 import games.phoenix.Projectile;
 import games.phoenix.World;
-import games.phoenix.enemies.Enemy;
-import games.phoenix.enemies.EnemyRed;
+import games.phoenix.enemies.*;
 
 /**
  * 
@@ -168,22 +168,56 @@ public class Room {
 	 *  - obstacles
 	 */
 	private void init() {
+		Random r = new Random();
+		int nbEnnemies;
+		int color;
+		Integer[] pos = new Integer[2];
+		ArrayList<Integer[]> possiblePos = new ArrayList<>();
+		
+		possiblePos.add(new Integer[] {xMargin+100,yMargin+100});
+		possiblePos.add(new Integer[] {worldWidth-xMargin-100,worldHeight-yMargin-100});
+		possiblePos.add(new Integer[] {worldWidth-xMargin-100,yMargin+100});
+		possiblePos.add(new Integer[] {xMargin+100,worldHeight-yMargin-100});
+		
 		switch (difficulty) {
 		case 0:
 			
 			break;
 		case 1:
 			// {1,2} ennemies Bleu / Vert
-			enemies.add(new EnemyRed(40,40,player));
+			nbEnnemies = r.nextInt(2)+1;
+			for (int i=0; i<nbEnnemies; i++) {
+				color = r.nextInt(2);
+				pos = possiblePos.remove(r.nextInt(possiblePos.size()));
+				enemies.add(color==0?new EnemyBlue(pos[0],pos[1],player):new EnemyGreen(pos[0],pos[1],player));
+			}
 			break;
 		case 2:
 			// 2 ennemies Vert / Jaune
+			nbEnnemies = 2;
+			for (int i=0; i<nbEnnemies; i++) {
+				color = r.nextInt(2);
+				pos = possiblePos.remove(r.nextInt(possiblePos.size()));
+				enemies.add(color==0?new EnemyGreen(pos[0],pos[1],player):new EnemyYellow(pos[0],pos[1],player));
+			}
 			break;
 		case 3:
 			// {2,3} ennemies Jaune / Rouge
+			nbEnnemies = r.nextInt(2)+2;
+			for (int i=0; i<nbEnnemies; i++) {
+				color = r.nextInt(2);
+				pos = possiblePos.remove(r.nextInt(possiblePos.size()));
+				enemies.add(color==0?new EnemyYellow(pos[0],pos[1],player):new EnemyRed(pos[0],pos[1],player));
+			}
 			break;
 		case 4:
 			// 3 ennemies Rouge / Violet
+			nbEnnemies = 3;
+			for (int i=0; i<nbEnnemies; i++) {
+				color = r.nextInt(2);
+				pos = possiblePos.remove(r.nextInt(possiblePos.size()));
+				enemies.add(color==0?new EnemyRed(pos[0],pos[1],player):new EnemyPurple(pos[0],pos[1],player));
+			}
 			break;
 		case -1:
 			
