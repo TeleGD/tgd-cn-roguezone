@@ -46,7 +46,7 @@ public class World extends AppWorld {
 		this.player = new Player(appGame.appPlayers.get(0), this);
 		map = new Map(10, this);
 		map = new Map(size, this);
-		activeRoom = map.getRoom(size/2,size/2);
+		setActiveRoom(size/2, size/2);
 		this.log = "";
 		System.out.println ("PLAY");
 	}
