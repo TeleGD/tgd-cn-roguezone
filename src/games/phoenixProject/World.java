@@ -1,4 +1,4 @@
-package games.phoenix;
+package games.phoenixProject;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -7,22 +7,22 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import app.AppGame;
 import app.AppWorld;
-import games.phoenix.map.Map;
-import games.phoenix.map.Room;
+import games.phoenixProject.map.Map;
+import games.phoenixProject.map.Room;
 
 public class World extends AppWorld {
 
-	public static String IMAGES = "/images/phoenix";
-	
+	public static String IMAGES = "/images";
+
 	private Map map;
 	private Player player;
 	private Room activeRoom;
-	
+
 	private String log;
 	private int height;
 	private int width;
 	private int size;
-	
+
 	public World (int ID) {
 		super (ID);
 	}
@@ -40,9 +40,9 @@ public class World extends AppWorld {
 	public void play (GameContainer container, StateBasedGame game) {
 		/* Méthode exécutée une unique fois au début du jeu */
 		AppGame appGame = (AppGame) game;
-		
+
 		this.size = 10;
-		
+
 		this.player = new Player(appGame.appPlayers.get(0), this);
 		map = new Map(10, this);
 		map = new Map(size, this);
@@ -73,9 +73,9 @@ public class World extends AppWorld {
 	public void poll (GameContainer container, StateBasedGame game, Input user) {
 		/* Méthode exécutée environ 60 fois par seconde */
 		super.poll (container, game, user);
-		
+
 		this.log = "";
-		
+
 		//String name = player.getName ();
 		/*int controllerID = player.getControllerID ();
 		for (int i = 0, l = input.getControlCount (controllerID); i < l; i++) {
@@ -94,7 +94,7 @@ public class World extends AppWorld {
 				this.log += "( player ).getAxisValue: " + i + " -> " + j + "\n";
 			}
 		}*/
-		
+
 	}
 
 	@Override
@@ -102,7 +102,7 @@ public class World extends AppWorld {
 		/* Méthode exécutée environ 60 fois par seconde */
 		super.update (container, game, delta);
 		activeRoom.update(container, game, delta);
-		
+
 		/*player.update(container, game, delta);
 		enemyb.update(container, game, delta);
 		enemyr.update(container, game, delta);

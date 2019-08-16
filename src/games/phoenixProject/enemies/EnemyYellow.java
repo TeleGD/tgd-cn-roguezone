@@ -1,12 +1,12 @@
-package games.phoenix.enemies;
+package games.phoenixProject.enemies;
 
 import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.geom.Ellipse;
 
-import games.phoenix.Player;
+import games.phoenixProject.Player;
 
 public class EnemyYellow extends Enemy{
-	
+
 	public EnemyYellow(int x, int y, Player player)
 	{
 		super(0, "yellow", x, y);
@@ -19,5 +19,5 @@ public class EnemyYellow extends Enemy{
 		setBehavior(new EnemyBehavior(this, player));
 		getBehavior().setPlayerInfluence(EnemyBehavior.interacting.COMING);
 	}
-	
+
 }

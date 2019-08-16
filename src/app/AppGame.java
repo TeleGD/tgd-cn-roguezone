@@ -15,16 +15,14 @@ public abstract class AppGame extends StateBasedGame {
 	public static final int PAGES_PLAYERS = 2;
 	public static final int PAGES_PAUSE = 3;
 	// public static final int PAGES_SCORES = 4;
-	public static final int GAMES_PHOENIX_WORLD = 4;
-	public static final int GAMES_ZONE_WORLD = 5;
+	public static final int GAMES_PHOENIX_PROJECT_WORLD = 4;
 
 	public static final String [] TITLES = new String [] {
 		"Accueil",
 		"Menu des jeux",
 		"Menu des joueurs",
 		"Pause",
-		"Phoenix Project",
-		"Bataille de zone (ce titre est vraiment pourri)"
+		"Phoenix Project"
 	};
 
 	public List <AppPlayer> appPlayers;

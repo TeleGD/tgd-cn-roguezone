@@ -1,14 +1,14 @@
-package games.phoenix.enemies;
+package games.phoenixProject.enemies;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.geom.Ellipse;
 import org.newdawn.slick.state.StateBasedGame;
 
-import games.phoenix.Player;
+import games.phoenixProject.Player;
 
 public class EnemyRed extends Enemy{
-	
+
 	public EnemyRed(int x, int y, Player player)
 	{
 		super(0, "red", x, y);
@@ -21,7 +21,7 @@ public class EnemyRed extends Enemy{
 		setBehavior(new EnemyBehavior(this, player));
 		getBehavior().setPlayerInfluence(EnemyBehavior.interacting.BOUNCE);
 	}
-	
+
 	public void update(GameContainer container, StateBasedGame game, int delta) {
 		super.update(container, game, delta);
 		if (pv < 4) {

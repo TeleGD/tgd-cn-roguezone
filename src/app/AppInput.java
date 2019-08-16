@@ -17,7 +17,7 @@ public class AppInput extends Input {
 	public static final int BUTTON_SL = 1024;
 	public static final int BUTTON_SR = 2048;
 	public static final int BUTTON_UP = 4096;
-	public static final int BUTTON_DOWN = 80192;
+	public static final int BUTTON_DOWN = 8192;
 	public static final int BUTTON_LEFT = 16384;
 	public static final int BUTTON_RIGHT = 32768;
 	public static final int AXIS_XL = 0;
@@ -33,6 +33,15 @@ public class AppInput extends Input {
 	private int [] controllerPressed;
 	private int [] controllerMoved;
 
+	private float scale;
+	private float offsetX;
+	private float offsetY;
+
+	private float scaleX;
+	private float scaleY;
+	private float xoffset;
+	private float yoffset;
+
 	public AppInput (int height) {
 		super (height);
 		this.pollFlag = false;
@@ -40,6 +49,67 @@ public class AppInput extends Input {
 		this.controls = new int [controllerCount];
 		this.controllerPressed = new int [controllerCount];
 		this.controllerMoved = new int [controllerCount];
+		this.scaleX = 1;
+		this.scaleY = 1;
+		this.xoffset = 0;
+		this.yoffset = 0;
+	}
+
+	void setCanvasClip (float scale, float offsetX, float offsetY) {
+		this.scale = scale;
+		this.offsetX = offsetX;
+		this.offsetY = offsetY;
+		float scaleX = this.scaleX / this.scale;
+		float scaleY = this.scaleY / this.scale;
+		float xoffset = this.xoffset - this.offsetX * scaleX;
+		float yoffset = this.yoffset - this.offsetY * scaleY;
+		super.setOffset (xoffset, yoffset);
+		super.setScale (scaleX, scaleY);
+	}
+
+	@Override
+	public int getAbsoluteMouseX () {
+		return (int) ((super.getAbsoluteMouseX () - this.offsetX) / this.scale);
+	}
+
+	@Override
+	public int getAbsoluteMouseY () {
+		return (int) ((super.getAbsoluteMouseY () - this.offsetY) / this.scale);
+	}
+
+	@Override
+	public void setScale (float scaleX, float scaleY) {
+		this.scaleX = scaleX;
+		this.scaleY = scaleY;
+		scaleX /= this.scale;
+		scaleY /= this.scale;
+		float xoffset = this.xoffset - this.offsetX * scaleX;
+		float yoffset = this.yoffset - this.offsetY * scaleY;
+		super.setOffset (xoffset, yoffset);
+		super.setScale (scaleX, scaleY);
+	}
+
+	@Override
+	public void setOffset (float xoffset, float yoffset) {
+		this.xoffset = xoffset;
+		this.yoffset = yoffset;
+		xoffset -= this.offsetX * this.scaleX / this.scale;
+		yoffset -= this.offsetY * this.scaleY / this.scale;
+		super.setOffset (xoffset, yoffset);
+	}
+
+	@Override
+	public void resetInputTransform () {
+		this.scaleX = 1;
+		this.scaleY = 1;
+		this.xoffset = 0;
+		this.yoffset = 0;
+		float scaleX = 1 / this.scale;
+		float scaleY = 1 / this.scale;
+		float xoffset = -this.offsetX * scaleX;
+		float yoffset = -this.offsetY * scaleY;
+		super.setOffset (xoffset, yoffset);
+		super.setScale (scaleX, scaleY);
 	}
 
 	@Override

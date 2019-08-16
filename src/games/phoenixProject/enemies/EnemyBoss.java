@@ -1,12 +1,12 @@
-package games.phoenix.enemies;
+package games.phoenixProject.enemies;
 
 import org.newdawn.slick.geom.Ellipse;
 import org.newdawn.slick.geom.Rectangle;
 
-import games.phoenix.Player;
+import games.phoenixProject.Player;
 
 public class EnemyBoss extends Enemy{
-	
+
 	public EnemyBoss(int x, int y, Player player)
 	{
 		super(0, "boss", x, y);

@@ -1,7 +1,7 @@
-package games.phoenix.enemies;
+package games.phoenixProject.enemies;
 
-import games.phoenix.Player;
-import games.phoenix.map.Room;
+import games.phoenixProject.Player;
+import games.phoenixProject.map.Room;
 
 public class EnemyBehavior {
 	public static enum interacting {FLEEING, COMING, STATIC, STRAIGHT, BOUNCE};
@@ -9,41 +9,41 @@ public class EnemyBehavior {
 	 * COMING : va vers le joueur
 	 * STATIC : ne bouge pas
 	 * STRAIGHT : ligne droite
-	 * 
+	 *
 	 */
-	
+
 	static enum wallCollision {MIRROR};
 	//TODO : mettre une reflexion du type : aléatoire (je rebondis n'importe quelle direction
 	//TODO : mettre une reflexion du type : je rebondis en direction du joueur
-	
+
 	private Enemy enemy;
 	private Player player;
-	
+
 	/*
 	 * direction de l'enemis UNIQUEMENT POUR l'interaction STRAIGHT (pour le moment)
 	 * il faut qu'il soit de norme 1
 	 */
 	private double[] normalizedVector = {1/Math.sqrt(2),1/Math.sqrt(2)};
-	
+
 	private interacting interaction = interacting.STATIC;
-	
+
 	private float playerX;
 	private float enemyX;
-	
+
 	private float enemyY;
 	private float playerY;
-	
+
 	private float deltaX;
 	private float deltaY;
-	
-	
-	
+
+
+
 	private double norm;
-	
+
 	private float directionX;
 	private float directionY;
-	
-	
+
+
 	/**
 	 * constructeur du comportement de l'ennemis
 	 * @param e
@@ -62,26 +62,26 @@ public class EnemyBehavior {
 		directionX = (float) (((double) deltaX )/ norm) * enemy.getSpeed();
 		directionY = (float) ((((double) deltaY )/ norm) * enemy.getSpeed());
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @return vecteur de position au format [x,y]
 	 */
 	public interacting getPlayerInfluence()
-	{	
+	{
 		return interaction;
 	}
-	
+
 	/**
 	 * permet de dire comment l'ennemis réagit face au joueur
 	 * @param i
 	 */
-	
+
 	public void setPlayerInfluence(interacting i)
 	{
 		interaction = i;
 	}
-	
+
 	/**
 	 * permet de renvoyer le vecteur de mouvement dû à l'influence du joueur
 	 * @return
@@ -91,17 +91,17 @@ public class EnemyBehavior {
 		float[] vect = {0,0};
 		float playerX = player.getPos()[0];
 		float enemyX = enemy.getPos()[0];
-		
+
 		float enemyY = enemy.getPos()[1];
 		float playerY = player.getPos()[1];
-		
+
 		float deltaX = enemyX - playerX;
 		float deltaY = enemyY - playerY;
-		
-		
-		
+
+
+
 		double norm  = Math.sqrt(Math.pow((double) deltaX, (double) 2) + Math.pow((double) deltaY, (double) 2));
-		
+
 		switch(interaction)
 		{
 		case FLEEING:
@@ -111,7 +111,7 @@ public class EnemyBehavior {
 				vect[1]= (float) ((((double) deltaY )/ norm) * enemy.getSpeed());
 			}
 			break;
-		
+
 		case COMING:
 			if (norm!=0)
 			{
@@ -141,7 +141,7 @@ public class EnemyBehavior {
 		}
 		return vect;
 	}
-	
+
 	/**
 	 * permet de dire comment l'ennemis réagit face à un mur
 	 * @return
@@ -152,7 +152,7 @@ public class EnemyBehavior {
 		//do some stuff
 		return pos;
 	}
-	
+
 	public void setVector(float[] vect)
 	{
 		normalizedVector[0] = vect[0];

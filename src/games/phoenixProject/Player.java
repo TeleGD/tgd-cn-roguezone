@@ -1,4 +1,4 @@
-package games.phoenix;
+package games.phoenixProject;
 
 import java.io.File;
 import org.newdawn.slick.Image;
@@ -12,7 +12,7 @@ import org.newdawn.slick.state.StateBasedGame;
 import app.AppInput;
 import app.AppLoader;
 import app.AppPlayer;
-import games.phoenix.map.Room;
+import games.phoenixProject.map.Room;
 
 /**
  * Classe gérant le joueur
@@ -28,10 +28,10 @@ public class Player {
 		playerSpritSheet[3] = AppLoader.loadPicture(World.IMAGES + File.separator + "characters" + File.separator + "gray_3.png");
 	}
 	private World world;
-	
+
 	private int controllerID;
-	
-	private int currentLife;	
+
+	private int currentLife;
 	private int maxLife;
 	private int currentShield;
 	private int maxShield;
@@ -44,12 +44,12 @@ public class Player {
 	private float posY;
 	private int fireRate;
 	private int delay;
-	
+
 	private int damage;
 	private float shotSpeed;
 	private int range;
 	private int shotRadius;
-	
+
 	private int height;
 	private int width;
 	private Ellipse headHitbox;
@@ -57,7 +57,7 @@ public class Player {
 	private Shape hitbox;
 	private int facing;
 	private int frameLock = 0;
-	
+
 	private Room room;
 
 	/**
@@ -65,12 +65,12 @@ public class Player {
 	 * @param appPlayer
 	 */
 	public Player(AppPlayer appPlayer, World world) {
-		
+
 		// Perso 1 : gray
-		this(world, appPlayer.getControllerID(), 100, 0,100,0.3f, 50, 
+		this(world, appPlayer.getControllerID(), 100, 0,100,0.3f, 50,
 												5, 3, 1f, 500);
 	}
-	
+
 	/**
 	 * Constructeur à paramètres du joueur
 	 */
@@ -85,21 +85,21 @@ public class Player {
 		this.speed = speed;
 		this.height = 80;
 		this.width = 80;
-		
+
 		this.posX = (world.getWidth() - this.width)/2;
 		this.posY = (world.getHeight() - this.height)/2;
 		oldPosX = posX;
 		oldPosY = posY;
-		
+
 		this.headHitbox = new Ellipse(posX + 40, posY + 26, 26, 24);
 		this.bodyHitbox = new Rectangle(posX + 30, posY + 46, 22, 32);
 		this.hitbox = headHitbox.union(bodyHitbox)[0];
 		hitbox.setLocation(posX, posY);
 		this.facing = 1;
-		
+
 		this.fireRate = fireRate;
 		this.delay = 0;
-		
+
 		this.damage = damage;
 		this.shotRadius = shotRadius;
 		this.shotSpeed = shotSpeed;
@@ -115,7 +115,7 @@ public class Player {
 	public void update(GameContainer container, StateBasedGame game, int delta) {
 		/* Méthode exécutée environ 60 fois par seconde */
 		AppInput input = (AppInput) container.getInput ();
-		
+
 		move(input, delta);
 
 		if(delay > 0){
@@ -127,12 +127,12 @@ public class Player {
 				facing = 1;
 				fired = true;
 			}
-			
+
 			if(input.isButtonPressed(AppInput.BUTTON_B, controllerID)){
 				facing = 3;
 				fired = true;
 			}
-			
+
 			if(input.isButtonPressed(AppInput.BUTTON_X, controllerID)){
 				facing = 2;
 				fired = true;
@@ -142,7 +142,7 @@ public class Player {
 				facing = 0;
 				fired = true;
 			}
-			
+
 			if (fired) {
 				frameLock = 15;
 				room.addProjectile(new Projectile(posX+width/2, posY+height/4, shotSpeed, facing, damage, range, shotRadius));
@@ -150,7 +150,7 @@ public class Player {
 			}
 		}
 	}
-	
+
 	/**
 	 * Méthode appellée 60 fois par seconde par World pour modifier d'afficher le joueur
 	 */
@@ -167,7 +167,7 @@ public class Player {
 		speedY = input.getAxisValue(AppInput.AXIS_YR, controllerID) * speed;
 
 		if (frameLock > 0) frameLock--;
-		
+
 		if (speedY < 0 && Math.abs(speedY) >Math.abs(speedX) && frameLock==0) facing = 0;
 		if (speedY > 0 && Math.abs(speedX) < Math.abs(speedY) && frameLock==0) facing = 1;
 		if (speedX < 0 && Math.abs(speedX) >= Math.abs(speedY) && frameLock==0) facing = 2;
@@ -180,12 +180,12 @@ public class Player {
 		posX = oldPosX + speedX*delta;
 		posY = oldPosY + speedY*delta;
 	}
-	
+
 	public void confirmMove(boolean confirm) {
 		if (confirm) {
 			oldPosX = posX;
 			oldPosY = posY;
-			
+
 			hitbox.setLocation(posX, posY);
 		} else {
 			posX = oldPosX;
@@ -200,12 +200,12 @@ public class Player {
 	public int getControllerID () {
 		return this.controllerID;
 	}
-	
+
 	/**
-	 * mettre à jour la vie actuelle  
+	 * mettre à jour la vie actuelle
 	 * @param difference : positive , ajoute difference à la vie actuelle; négative enlève difference à la vie actuelle
 	 */
-	public void updateCurrentLife(int difference) 
+	public void updateCurrentLife(int difference)
 	{
 		currentLife += difference;
 	}
@@ -218,7 +218,7 @@ public class Player {
 	{
 		currentLife = newLife;
 	}
-	
+
 	/**
 	 * renvoie la vie courrante
 	 * @return
@@ -232,7 +232,7 @@ public class Player {
 	 * mettre à jour la vie max
 	 * @param difference : positive , ajoute difference à la vie max; négative enlève difference à la vie max
 	 */
-	public void updateMaxLife(int difference) 
+	public void updateMaxLife(int difference)
 	{
 		maxLife += difference;
 	}
@@ -304,16 +304,16 @@ public class Player {
 	{
 		maxLife = newMaxLife;
 	}
-	
+
 	/**
 	 * renvoie la vie max
-	 * @return 
+	 * @return
 	 */
 	public int getMaxLife()
 	{
 		return maxLife;
 	}
-	
+
 	public float[] getPos()
 	{
 		float[] pos = {posX+width/2,posY+height/2};
@@ -359,7 +359,7 @@ public class Player {
 	public void setRoom(Room room) {
 		this.room = room;
 	}
-	
+
 	public void changeRoom(int line, int column, int direction) {
 		world.setActiveRoom(line,column);
 		switch (direction) {

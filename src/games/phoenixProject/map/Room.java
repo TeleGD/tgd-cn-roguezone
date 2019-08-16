@@ -1,4 +1,4 @@
-package games.phoenix.map;
+package games.phoenixProject.map;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -10,19 +10,19 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.state.StateBasedGame;
 
 import app.AppLoader;
-import games.phoenix.Player;
-import games.phoenix.Projectile;
-import games.phoenix.World;
-import games.phoenix.enemies.*;
+import games.phoenixProject.Player;
+import games.phoenixProject.Projectile;
+import games.phoenixProject.World;
+import games.phoenixProject.enemies.*;
 
 /**
- * 
+ *
  * @author amos
  *
  * Object de chaque salle
  */
 public class Room {
-	
+
 	/*
 	 * Numéro de l'image selon les portes : décomposition binaire
 	 * [3 2 1 0]
@@ -43,19 +43,19 @@ public class Room {
 	 * 14 : {1,2,3}
 	 * 15 : {0,1,2,3}
 	 */
-	
+
 	private Image fond = AppLoader.loadPicture(World.IMAGES+File.separator+"rooms"+File.separator+"room_15.png");
-	
+
 	public static int worldWidth;
 	public static int worldHeight;
-	
+
 	private int line;
 	private int column;
-	
+
 	public static int xMargin;
 	public static int yMargin;
 	private int doorWidth;
-	
+
 	private int difficulty;
 	private Player player;
 	private ArrayList<Enemy> enemies = new ArrayList<>();
@@ -64,43 +64,43 @@ public class Room {
 
 	/**
 	 * Instancie l'objet Room selon sa difficulté
-	 * 
-	 * @param difficulty  
-	 * 1 - 4 : salle avec des ennemies (nombre et niveau des ennemies)  
-	 * 0 : salle de départ  
-	 * -1 : salle d'item  
-	 * -2 : salle de boss  
-	 * -3 : sortie  
-	 * @param doors  
-	 * 	- 0 haut  
-	 * 	- 1 bas  
-	 * 	- 2 gauche  
-	 * 	- 3 bas  
+	 *
+	 * @param difficulty
+	 * 1 - 4 : salle avec des ennemies (nombre et niveau des ennemies)
+	 * 0 : salle de départ
+	 * -1 : salle d'item
+	 * -2 : salle de boss
+	 * -3 : sortie
+	 * @param doors
+	 * 	- 0 haut
+	 * 	- 1 bas
+	 * 	- 2 gauche
+	 * 	- 3 bas
 	 */
 	public Room(World world, int difficulty, int line, int column) {
 		this.difficulty = difficulty;
 		this.player = world.getPlayer();
-		
+
 		this.doors = new ArrayList<>();
-		
+
 		this.worldWidth = world.getWidth();
 		this.worldHeight = world.getHeight();
-		
+
 		this.xMargin = 104 * worldWidth / 1920;
 		this.yMargin = 104 * worldHeight / 1080;
-		
+
 		this.doorWidth = 148 * worldWidth / 1920;
-		
+
 		this.line = line;
 		this.column = column;
-		
+
 		init();
 	}
-	
+
 	public void addDoor(int door) {
 		this.doors.add(door);
 	}
-	
+
 	public void update (GameContainer container, StateBasedGame game, int delta) {
 		player.update(container, game, delta);
 		checkPlayerPos();
@@ -132,11 +132,11 @@ public class Room {
 			projectile.render(container, game, context);
 		}
 	}
-	
+
 	private void checkPlayerPos() {
 		float pos[] = player.getPos();
 		boolean inside = true;
-		
+
 		if (doors.contains(0) && pos[1] <= yMargin && pos[0]>worldWidth/2-doorWidth/2 && pos[0]<worldWidth/2+doorWidth/2 ) {
 			player.changeRoom(line-1,column,0);
 			projectiles = new ArrayList<>();
@@ -153,14 +153,14 @@ public class Room {
 			player.changeRoom(line,column+1,3);
 			projectiles = new ArrayList<>();
 		}
-		
+
 		if (pos[0] < xMargin || pos[0] > worldWidth-xMargin || pos[1] < yMargin || pos[1] > worldHeight-yMargin) {
 			inside = false;
 		}
 		player.confirmMove(inside);
-		
+
 	}
-	
+
 	/**
 	 * Fonction initialisant la salle selon sa difficulté :
 	 *  - ennemies
@@ -173,15 +173,15 @@ public class Room {
 		int color;
 		Integer[] pos = new Integer[2];
 		ArrayList<Integer[]> possiblePos = new ArrayList<>();
-		
+
 		possiblePos.add(new Integer[] {xMargin+100,yMargin+100});
 		possiblePos.add(new Integer[] {worldWidth-xMargin-100,worldHeight-yMargin-100});
 		possiblePos.add(new Integer[] {worldWidth-xMargin-100,yMargin+100});
 		possiblePos.add(new Integer[] {xMargin+100,worldHeight-yMargin-100});
-		
+
 		switch (difficulty) {
 		case 0:
-			
+
 			break;
 		case 1:
 			// {1,2} ennemies Bleu / Vert
@@ -220,19 +220,19 @@ public class Room {
 			}
 			break;
 		case -1:
-			
+
 			break;
 		case -2:
-			
+
 			break;
 		case -3:
-			
+
 			break;
 		default:
-			
+
 		}
 	}
-	
+
 	public void collisions() {
 		for (Enemy e: enemies){
 			if(e.getHitbox().intersects(player.getHitbox()) || e.getHitbox().contains(player.getHitbox())) {
@@ -246,11 +246,11 @@ public class Room {
 			}
 		}
 	}
-	
+
 	public void addProjectile(Projectile p){
 		this.projectiles.add(p);
 	}
-	
+
 	public int getDifficulty() {
 		return difficulty;
 	}

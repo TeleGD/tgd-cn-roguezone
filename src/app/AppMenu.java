@@ -9,9 +9,6 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.state.StateBasedGame;
 
-import app.AppGame;
-import app.AppInput;
-import app.AppPlayer;
 import app.elements.MenuItem;
 
 public abstract class AppMenu extends AppPage {
@@ -21,7 +18,7 @@ public abstract class AppMenu extends AppPage {
 	static private int menuLineHeight;
 
 	static {
-		AppMenu.menuFont = AppLoader.loadFont ("/fonts/vt323.ttf", java.awt.Font.BOLD, 24);
+		AppMenu.menuFont = AppLoader.loadFont ("/fonts/vt323.ttf", AppFont.BOLD, 24);
 
 		AppMenu.menuLineHeight = 30;
 	}
@@ -92,34 +89,36 @@ public abstract class AppMenu extends AppPage {
 		this.upFlag = false;
 		this.downFlag = false;
 		AppGame appGame = (AppGame) game;
-		AppPlayer gameMaster = appGame.appPlayers.get (0);
-		int gameMasterID = gameMaster.getControllerID ();
-		boolean BUTTON_A = input.isKeyDown (AppInput.KEY_ENTER) || input.isButtonPressed (AppInput.BUTTON_A, gameMasterID);
-		boolean BUTTON_B = input.isKeyDown (AppInput.KEY_ESCAPE) || input.isButtonPressed (AppInput.BUTTON_B, gameMasterID);
-		boolean KEY_UP = input.isKeyDown (AppInput.KEY_UP) || input.isControllerUp (gameMasterID);
-		boolean KEY_DOWN = input.isKeyDown (AppInput.KEY_DOWN) || input.isControllerDown (gameMasterID);
-		boolean BUTTON_UP = KEY_UP && !KEY_DOWN;
-		boolean BUTTON_DOWN = KEY_DOWN && !KEY_UP;
-		int gameMasterRecord = gameMaster.getButtonPressedRecord ();
-		if (BUTTON_A == ((gameMasterRecord & AppInput.BUTTON_A) == 0)) {
-			gameMasterRecord ^= AppInput.BUTTON_A;
-			this.forwardFlag = BUTTON_A;
+		if (appGame.appPlayers.size () != 0) {
+			AppPlayer gameMaster = appGame.appPlayers.get (0);
+			int gameMasterID = gameMaster.getControllerID ();
+			boolean BUTTON_A = input.isKeyDown (AppInput.KEY_ENTER) || input.isButtonPressed (AppInput.BUTTON_A, gameMasterID);
+			boolean BUTTON_B = input.isKeyDown (AppInput.KEY_ESCAPE) || input.isButtonPressed (AppInput.BUTTON_B, gameMasterID);
+			boolean KEY_UP = input.isKeyDown (AppInput.KEY_UP) || input.isControllerUp (gameMasterID);
+			boolean KEY_DOWN = input.isKeyDown (AppInput.KEY_DOWN) || input.isControllerDown (gameMasterID);
+			boolean BUTTON_UP = KEY_UP && !KEY_DOWN;
+			boolean BUTTON_DOWN = KEY_DOWN && !KEY_UP;
+			int gameMasterRecord = gameMaster.getButtonPressedRecord ();
+			if (BUTTON_A == ((gameMasterRecord & AppInput.BUTTON_A) == 0)) {
+				gameMasterRecord ^= AppInput.BUTTON_A;
+				this.forwardFlag = BUTTON_A;
+			}
+			if (BUTTON_B == ((gameMasterRecord & AppInput.BUTTON_B) == 0)) {
+				gameMasterRecord ^= AppInput.BUTTON_B;
+				this.backFlag = BUTTON_B;
+			}
+			int BIT_UP = 1 << (input.getButtonCount (gameMasterID) + (AppInput.AXIS_YL << 1));
+			if (BUTTON_UP == ((gameMasterRecord & BIT_UP) == 0)) {
+				gameMasterRecord ^= BIT_UP;
+				this.upFlag = BUTTON_UP;
+			}
+			int BIT_DOWN = 1 << (input.getButtonCount (gameMasterID) + ((AppInput.AXIS_YL << 1) | 1));
+			if (BUTTON_DOWN == ((gameMasterRecord & BIT_DOWN) == 0)) {
+				gameMasterRecord ^= BIT_DOWN;
+				this.downFlag = BUTTON_DOWN;
+			}
+			gameMaster.setButtonPressedRecord (gameMasterRecord);
 		}
-		if (BUTTON_B == ((gameMasterRecord & AppInput.BUTTON_B) == 0)) {
-			gameMasterRecord ^= AppInput.BUTTON_B;
-			this.backFlag = BUTTON_B;
-		}
-		int BIT_UP = 1 << (input.getButtonCount (gameMasterID) + (AppInput.AXIS_YL << 1));
-		if (BUTTON_UP == ((gameMasterRecord & BIT_UP) == 0)) {
-			gameMasterRecord ^= BIT_UP;
-			this.upFlag = BUTTON_UP;
-		}
-		int BIT_DOWN = 1 << (input.getButtonCount (gameMasterID) + ((AppInput.AXIS_YL << 1) | 1));
-		if (BUTTON_DOWN == ((gameMasterRecord & BIT_DOWN) == 0)) {
-			gameMasterRecord ^= BIT_DOWN;
-			this.downFlag = BUTTON_DOWN;
-		}
-		gameMaster.setButtonPressedRecord (gameMasterRecord);
 	}
 
 	@Override

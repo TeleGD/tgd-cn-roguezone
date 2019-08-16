@@ -1,4 +1,4 @@
-package games.phoenix.enemies;
+package games.phoenixProject.enemies;
 
 import java.util.HashMap;
 
@@ -12,14 +12,14 @@ import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.state.StateBasedGame;
 
 import app.AppLoader;
-import games.phoenix.Player;
-import games.phoenix.World;
+import games.phoenixProject.Player;
+import games.phoenixProject.World;
 
 public abstract class Enemy {
-	
+
 	protected final String name;
 	protected final int id;
-	
+
 	protected float posX;
 	protected float posY;
 	protected int radius;
@@ -43,15 +43,15 @@ public abstract class Enemy {
 	}
 
 	protected EnemyBehavior behavior;
-	
+
 	/**
-	 * 
+	 *
 	 * @param id : id du type d'ennemis
 	 * @param name : nom du type d'ennemis
 	 * @param img : arborescence menant à l'image de l'ennemis
 	 * @throws SlickException :  si l'image n'a pas été trouvée ou pas bien affectée
 	 */
-	
+
 	public Enemy (int id, String name, int x, int y) {
 
 		this.name = name;
@@ -59,10 +59,10 @@ public abstract class Enemy {
 		this.size = 100;
 		this.setPosition(x,y);
 	}
-	
+
 	public void update (GameContainer container, StateBasedGame game, int delta) {
 		/* Méthode exécutée environ 60 fois par seconde */
-		
+
 		float x = this.getBehavior().influencedMove()[0];
 		float y = this.getBehavior().influencedMove()[1];
 		move(x,y);
@@ -75,8 +75,8 @@ public abstract class Enemy {
 		context.setColor(Color.green);
 		context.draw(hitbox);
 	}
-	
-	
+
+
 	/**
 	 * mets l'ennemis à la position souhaitée
 	 * @param x : abscisse de l'ennemis
@@ -85,35 +85,35 @@ public abstract class Enemy {
 	public void setPosition(float x, float y)
 	{
 		this.posX = x;
-		this.posY = y;		
+		this.posY = y;
 	}
-	
+
 	public Shape getHitbox() {
 		return hitbox;
 	}
-	
+
 	public int getRadius() {
 		return radius;
 	}
-	
+
 	public void setBehavior(EnemyBehavior b)
 	{
 		this.behavior = b;
 	}
-	
+
 	public EnemyBehavior getBehavior()
 	{
 		return behavior;
 	}
-	
+
 	public void setPv(int newpv) {
 		pv = newpv;
 	}
-	
+
 	public int getPv() {
 		return pv;
 	}
-	
+
 	/**
 	 * met la position X à jour
 	 * @param x
@@ -122,9 +122,9 @@ public abstract class Enemy {
 	{
 		posX = x;
 	}
-	
+
 	/**
-	 * permet de bouger l'ennemis dans un direction donnée  
+	 * permet de bouger l'ennemis dans un direction donnée
 	 * @param vx
 	 * @param vy
 	 */
@@ -132,11 +132,11 @@ public abstract class Enemy {
 	{
 		posX += vx;
 		posY += vy;
-		
+
 		hitbox.setCenterX(posX);
 		hitbox.setCenterY(posY);
 	}
-	
+
 	/**
 	 * met la position y à jour
 	 * @param y
@@ -145,7 +145,7 @@ public abstract class Enemy {
 	{
 		posY = y;
 	}
-	
+
 	/**
 	 * mets la puissance (les dégâts infligés par l'ennemis) à jour.
 	 * @param dmg : les dégâts
@@ -154,7 +154,7 @@ public abstract class Enemy {
 	{
 		damage = dmg;
 	}
-	
+
 	/**
 	 * inflige des dégâts au joueur p
 	 * @param p : joueur à qui infliger les dégâts
@@ -163,7 +163,7 @@ public abstract class Enemy {
 	{
 		p.updateCurrentLife(-damage) ;
 	}
-	
+
 	/**
 	 * renvoie le nom de l'ennemis
 	 * @return nom de l'ennemis en String
@@ -177,28 +177,28 @@ public abstract class Enemy {
 	 * renvoie l'id de l'ennemis
 	 * @return id de l'ennemis en int
 	 */
-	
+
 	public int getId()
 	{
 		return id;
 	}
-	
+
 	/**
-	 * met l'image de l'ennmis à jour 
+	 * met l'image de l'ennmis à jour
 	 * @param img : arborescence de l'image
 	 * @throws SlickException
 	 */
-	
+
 	public Image getSprite() {
 		return image;
 	}
-	
+
 	public float[] getPos()
 	{
 		float[] pos = {posX,posY};
 		return pos;
 	}
-	
+
 	public float getSpeed()
 	{
 		return speed;
@@ -207,5 +207,5 @@ public abstract class Enemy {
 	public boolean isDead() {
 		return pv<=0;
 	}
-	
+
 }

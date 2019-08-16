@@ -1,6 +1,3 @@
-import java.awt.DisplayMode;
-import java.awt.GraphicsEnvironment;
-
 import javax.swing.JOptionPane;
 
 import app.AppGame;
@@ -8,12 +5,12 @@ import app.AppGame;
 public final class Main {
 
 	public static final void main (String [] arguments) {
-		String title = "Phoenix-truc";
+		String title = "Phoenix Project";
 		int width = 1280;
 		int height = 720;
 		boolean fullscreen = false;
 		String request = "Voulez-vous jouer en plein écran ?";
-		Object [] options = {
+		String [] options = {
 			"Oui",
 			"Non"
 		};
@@ -27,27 +24,22 @@ public final class Main {
 			options,
 			options [0]
 		);
-		if (returnValue != -1) {
-			if (returnValue == 0) {
-				DisplayMode display = GraphicsEnvironment.getLocalGraphicsEnvironment ().getDefaultScreenDevice ().getDisplayMode ();
-				width = display.getWidth ();
-				height = display.getHeight ();
-				fullscreen = true;
-			}
-			new AppGame (title, width, height, fullscreen) {
-
-				@Override
-				public void init () {
-					this.addState (new pages.Welcome (AppGame.PAGES_WELCOME));
-					this.addState (new pages.Games (AppGame.PAGES_GAMES));
-					this.addState (new pages.Players (AppGame.PAGES_PLAYERS));
-					this.addState (new pages.Pause (AppGame.PAGES_PAUSE));
-					this.addState (new games.phoenix.World (AppGame.GAMES_PHOENIX_WORLD));
-					this.addState (new games.zone.World (AppGame.GAMES_ZONE_WORLD));
-				}
-
-			};
+		if (returnValue == -1) {
+			return;
 		}
+		fullscreen = returnValue == 0;
+		new AppGame (title, width, height, fullscreen) {
+
+			@Override
+			public void init () {
+				this.addState (new pages.Welcome (AppGame.PAGES_WELCOME));
+				this.addState (new pages.Games (AppGame.PAGES_GAMES));
+				this.addState (new pages.Players (AppGame.PAGES_PLAYERS));
+				this.addState (new pages.Pause (AppGame.PAGES_PAUSE));
+				this.addState (new games.phoenixProject.World (AppGame.GAMES_PHOENIX_PROJECT_WORLD));
+			}
+
+		};
 	}
 
 }
