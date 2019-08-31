@@ -1,0 +1,5 @@
+- Amos George (@AmosGeorge)
+- Bruno Gomes Dos Santos
+- Christopher Schirlé (@ChristopherSchirle)
+- Frantz Darbon (@Noxerinno)
+- Quentin Charrier (@QuentinCharrierTncy)
