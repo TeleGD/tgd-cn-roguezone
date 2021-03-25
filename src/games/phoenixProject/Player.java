@@ -1,6 +1,5 @@
 package games.phoenixProject;
 
-import java.io.File;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.geom.Ellipse;
@@ -23,9 +22,9 @@ public class Player {
 
 	static{
 		playerSpritSheet[0] = AppLoader.loadPicture(World.IMAGES + "/characters/gray_0.png");
-		playerSpritSheet[1] = AppLoader.loadPicture(World.IMAGES + File.separator + "characters" + File.separator + "gray_1.png");
-		playerSpritSheet[2] = AppLoader.loadPicture(World.IMAGES + File.separator + "characters" + File.separator + "gray_2.png");
-		playerSpritSheet[3] = AppLoader.loadPicture(World.IMAGES + File.separator + "characters" + File.separator + "gray_3.png");
+		playerSpritSheet[1] = AppLoader.loadPicture(World.IMAGES + "/characters/gray_1.png");
+		playerSpritSheet[2] = AppLoader.loadPicture(World.IMAGES + "/characters/gray_2.png");
+		playerSpritSheet[3] = AppLoader.loadPicture(World.IMAGES + "/characters/gray_3.png");
 	}
 	private World world;
 

@@ -9,11 +9,12 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class Fatigue extends Bonus {
+
 	private boolean activated, deleted;
 	private int duration;
 	private Player player;
 
-	static{
+	static {
 		sprite = AppLoader.loadPicture(World.IMAGES + "./bonuses/Fatigue.png");
 	}
 

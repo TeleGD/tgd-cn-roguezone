@@ -12,7 +12,7 @@ public class Pillule extends Bonus {
 
 	private boolean activated, deleted;
 
-	static{
+	static {
 		sprite = AppLoader.loadPicture(World.IMAGES + "./bonuses/Pillule.png");
 	}
 

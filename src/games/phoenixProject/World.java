@@ -12,13 +12,12 @@ import games.phoenixProject.map.Room;
 
 public class World extends AppWorld {
 
-	public static String IMAGES = "/images";
+	public static String IMAGES = "/images/phoenixProject";
 
 	private Map map;
 	private Player player;
 	private Room activeRoom;
 
-	private String log;
 	private int height;
 	private int width;
 	private int size;
@@ -47,54 +46,27 @@ public class World extends AppWorld {
 		map = new Map(10, this);
 		map = new Map(size, this);
 		setActiveRoom(size/2, size/2);
-		this.log = "";
-		System.out.println ("PLAY");
 	}
 
 	@Override
 	public void stop (GameContainer container, StateBasedGame game) {
 		/* Méthode exécutée une unique fois à la fin du jeu */
-		System.out.println ("STOP");
 	}
 
 	@Override
 	public void resume (GameContainer container, StateBasedGame game) {
 		/* Méthode exécutée lors de la reprise du jeu */
-		System.out.println ("RESUME");
 	}
 
 	@Override
 	public void pause (GameContainer container, StateBasedGame game) {
 		/* Méthode exécutée lors de la mise en pause du jeu */
-		System.out.println ("PAUSE");
 	}
 
 	@Override
 	public void poll (GameContainer container, StateBasedGame game, Input user) {
 		/* Méthode exécutée environ 60 fois par seconde */
 		super.poll (container, game, user);
-
-		this.log = "";
-
-		//String name = player.getName ();
-		/*int controllerID = player.getControllerID ();
-		for (int i = 0, l = input.getControlCount (controllerID); i < l; i++) {
-			if (input.isControlPressed (1 << i, controllerID)) {
-				this.log += "( player ).isControlPressed: " + i + "\n";
-			}
-		}
-		for (int i = 0, l = input.getButtonCount (controllerID); i < l; i++) {
-			if (input.isButtonPressed (1 << i, controllerID)) {
-				this.log += "( player ).isButtonPressed: " + i + "\n";
-			}
-		}
-		for (int i = 0, l = input.getAxisCount (controllerID); i < l; i++) {
-			float j = input.getAxisValue (i, controllerID);
-			if (j <= -.5f || j >= .5f) {
-				this.log += "( player ).getAxisValue: " + i + " -> " + j + "\n";
-			}
-		}*/
-
 	}
 
 	@Override
@@ -116,9 +88,6 @@ public class World extends AppWorld {
 	public void render (GameContainer container, StateBasedGame game, Graphics context) {
 		/* Méthode exécutée environ 60 fois par seconde */
 		super.render (container, game, context);
-		if (this.log.length () != 0) {
-			System.out.print (this.log);
-		}
 		activeRoom.render(container, game, context);
 
 		/*player.render(container, game, context);

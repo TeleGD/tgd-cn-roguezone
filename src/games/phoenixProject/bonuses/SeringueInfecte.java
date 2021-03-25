@@ -12,7 +12,7 @@ public class SeringueInfecte extends Bonus {
 
 	private boolean activated, deleted;
 
-	static{
+	static {
 		sprite = AppLoader.loadPicture(World.IMAGES + "./bonuses/Seringue.png");
 	}
 

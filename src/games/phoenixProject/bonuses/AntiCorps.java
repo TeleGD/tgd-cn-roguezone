@@ -14,7 +14,7 @@ public class AntiCorps extends Bonus {
 
 	private boolean activated, deleted;
 
-	static{
+	static {
 		sprite = AppLoader.loadPicture(World.IMAGES + "./bonuses/Anticorps.png");
 	}
 

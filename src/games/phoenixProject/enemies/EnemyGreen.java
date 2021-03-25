@@ -1,7 +1,6 @@
 package games.phoenixProject.enemies;
 
 import org.newdawn.slick.geom.Circle;
-import org.newdawn.slick.geom.Ellipse;
 
 import games.phoenixProject.Player;
 

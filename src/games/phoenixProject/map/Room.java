@@ -1,6 +1,5 @@
 package games.phoenixProject.map;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -44,7 +43,7 @@ public class Room {
 	 * 15 : {0,1,2,3}
 	 */
 
-	private Image fond = AppLoader.loadPicture(World.IMAGES+File.separator+"rooms"+File.separator+"room_15.png");
+	private Image fond = AppLoader.loadPicture(World.IMAGES+"/rooms/room_15.png");
 
 	public static int worldWidth;
 	public static int worldHeight;

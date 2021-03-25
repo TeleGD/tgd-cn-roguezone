@@ -4,7 +4,8 @@ import org.newdawn.slick.geom.Circle;
 
 import games.phoenixProject.Player;
 
-public class DistanceEnemy extends Enemy{
+public class DistanceEnemy extends Enemy {
+
 	/**
 	 * shootingRate : cadence de tir
 	 * bulletSpeed : vitesse des projectiles
@@ -19,8 +20,7 @@ public class DistanceEnemy extends Enemy{
 	 * @param img : arborescence de l'image
 	 * @throws SlickException : si l'image n'a pas été trouvée ou pas bien affectée
 	 */
-	public DistanceEnemy(int id, String name, int x, int y, Player player)
-	{
+	public DistanceEnemy(int id, String name, int x, int y, Player player) {
 		super(id,name,x,y);
 		this.image = playerSpriteSheet.get("Rouge");
 		setContactDamage(2);
@@ -36,8 +36,7 @@ public class DistanceEnemy extends Enemy{
 	 * renvoie la vitesse des projectiles
 	 * @return
 	 */
-	public float getBulletSpeed()
-	{
+	public float getBulletSpeed() {
 		return bulletSpeed;
 	}
 
